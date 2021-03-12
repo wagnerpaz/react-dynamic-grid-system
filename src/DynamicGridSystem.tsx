@@ -5,20 +5,6 @@ type Props = {
 };
 
 const DynamicGridSystem = ({ children }: Props) => {
-  const main = (
-    <div
-      style={{
-        flex: 1,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100%'
-      }}
-    >
-      {children}
-    </div>
-  );
-
   return (
     <div
       style={{
@@ -30,7 +16,17 @@ const DynamicGridSystem = ({ children }: Props) => {
         backgroundColor: 'red'
       }}
     >
-      {main}
+      <div
+        style={{
+          flex: 1,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%'
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 };

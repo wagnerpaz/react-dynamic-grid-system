@@ -1,143 +1,94 @@
 import React from 'react';
+import { Direction } from './Direction';
 import Divider from './Divider';
-import { Orientation } from './Orientation';
-
-type DirectionProps = {
-  top?: boolean;
-  right?: boolean;
-  bottom?: boolean;
-  left?: boolean;
-};
 
 type Props = {
-  top?: boolean;
-  right?: boolean;
-  bottom?: boolean;
-  left?: boolean;
+  top?: React.ReactElement;
+  topRatio?: number;
+  topOnOpen?: (direction: Direction) => void;
+  right?: React.ReactElement;
+  rightRatio?: number;
+  rightOnOpen?: (direction: Direction) => void;
+  bottom?: React.ReactElement;
+  bottomRatio?: number;
+  bottomOnOpen?: (direction: Direction) => void;
+  left?: React.ReactElement;
+  leftRatio?: number;
+  leftOnOpen?: (direction: Direction) => void;
   children: React.ReactElement;
-  secondChildren: React.ReactElement;
 };
 
 const MultiDivider = ({
   top,
+  topRatio,
+  topOnOpen,
   right,
+  rightRatio,
+  rightOnOpen,
   bottom,
+  bottomRatio,
+  bottomOnOpen,
   left,
-  children,
-  secondChildren
+  leftRatio,
+  leftOnOpen,
+  children
 }: Props) => {
-  const secondChildrenWrapper = ({
-    top,
-    right,
-    bottom,
-    left
-  }: DirectionProps) => (
-    <MultiDivider
-      secondChildren={secondChildren}
-      top={!bottom}
-      right={!left}
-      bottom={!top}
-      left={!right}
-    >
-      {secondChildren}
-    </MultiDivider>
-  );
-
-  const topWrapper = (children: React.ReactElement): React.ReactElement => (
-    <Divider
-      orientation={Orientation.HORIZONTAL}
-      second
-      secondChildren={secondChildrenWrapper({ top: true })}
-      transformChildren={(children: React.ReactElement) => {
-        return (
-          <MultiDivider
-            left={!left}
-            right={!right}
-            secondChildren={secondChildrenWrapper({ left: true, right: true })}
-          >
-            {children}
-          </MultiDivider>
-        );
-      }}
-    >
-      {children}
-    </Divider>
-  );
-
-  const rightWrapper = (children: React.ReactElement): React.ReactElement => (
-    <Divider
-      orientation={Orientation.VERTICAL}
-      second
-      secondChildren={secondChildrenWrapper({ right: true })}
-      transformChildren={(children: React.ReactElement) => {
-        return (
-          <MultiDivider
-            top={!top}
-            bottom={!bottom}
-            secondChildren={secondChildrenWrapper({ top: true, bottom: true })}
-          >
-            {children}
-          </MultiDivider>
-        );
-      }}
-    >
-      {children}
-    </Divider>
-  );
-
-  const bottomWrapper = (children: React.ReactElement): React.ReactElement => (
-    <Divider
-      orientation={Orientation.HORIZONTAL}
-      secondChildren={secondChildrenWrapper({ bottom: true })}
-      transformChildren={(children: React.ReactElement) => {
-        console.log('bottom transform');
-        return (
-          <MultiDivider
-            left={!left}
-            right={!right}
-            secondChildren={secondChildrenWrapper({ left: true, right: true })}
-          >
-            {children}
-          </MultiDivider>
-        );
-      }}
-    >
-      {children}
-    </Divider>
-  );
-
-  const leftWrapper = (children: React.ReactElement): React.ReactElement => (
-    <Divider
-      orientation={Orientation.VERTICAL}
-      secondChildren={secondChildrenWrapper({ left: true })}
-      transformChildren={(children: React.ReactElement) => {
-        return (
-          <MultiDivider
-            top={!top}
-            bottom={!bottom}
-            secondChildren={secondChildrenWrapper({ top: true, bottom: true })}
-          >
-            {children}
-          </MultiDivider>
-        );
-      }}
-    >
-      {children}
-    </Divider>
-  );
-
   let child: React.ReactElement = children;
-  if (right) {
-    child = rightWrapper(child);
-  }
-  if (left) {
-    child = leftWrapper(child);
-  }
+
   if (bottom) {
+    const bottomWrapper = (
+      children: React.ReactElement
+    ): React.ReactElement => (
+      <Divider
+        direction={Direction.BOTTOM}
+        secondChildren={bottom}
+        ratio={bottomRatio}
+        onOpen={bottomOnOpen}
+      >
+        {children}
+      </Divider>
+    );
     child = bottomWrapper(child);
   }
   if (top) {
+    const topWrapper = (children: React.ReactElement): React.ReactElement => (
+      <Divider
+        direction={Direction.TOP}
+        secondChildren={top}
+        ratio={topRatio}
+        onOpen={topOnOpen}
+      >
+        {children}
+      </Divider>
+    );
     child = topWrapper(child);
+  }
+
+  if (left) {
+    const leftWrapper = (children: React.ReactElement): React.ReactElement => (
+      <Divider
+        direction={Direction.LEFT}
+        secondChildren={left}
+        ratio={leftRatio}
+        onOpen={leftOnOpen}
+      >
+        {children}
+      </Divider>
+    );
+    child = leftWrapper(child);
+  }
+  if (right) {
+    const rightWrapper = (children: React.ReactElement): React.ReactElement => (
+      <Divider
+        direction={Direction.RIGHT}
+        secondChildren={right}
+        ratio={rightRatio}
+        onOpen={rightOnOpen}
+      >
+        {children}
+      </Divider>
+    );
+    child = rightWrapper(child);
   }
 
   return child;
