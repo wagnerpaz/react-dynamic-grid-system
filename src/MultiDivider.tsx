@@ -1,20 +1,21 @@
 import React from 'react';
 import { Direction } from './Direction';
+import { State } from './State';
 import Divider from './Divider';
 
 type Props = {
   top?: React.ReactElement;
   topRatio?: number;
-  topOnOpen?: (direction: Direction) => void;
+  topOnOpen?: (state?: State) => void;
   right?: React.ReactElement;
   rightRatio?: number;
-  rightOnOpen?: (direction: Direction) => void;
+  rightOnOpen?: (state?: State) => void;
   bottom?: React.ReactElement;
   bottomRatio?: number;
-  bottomOnOpen?: (direction: Direction) => void;
+  bottomOnOpen?: (state?: State) => void;
   left?: React.ReactElement;
   leftRatio?: number;
-  leftOnOpen?: (direction: Direction) => void;
+  leftOnOpen?: (state?: State) => void;
   children: React.ReactElement;
 };
 

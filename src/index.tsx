@@ -6,6 +6,7 @@ import MultiDivider2 from './MultiDivider2';
 import { Orientation } from './Orientation';
 import { Direction } from './Direction';
 import { Direction9 } from './Direction9';
+import { State } from './State';
 
 export {
   DynamicGridSystem,
@@ -15,5 +16,6 @@ export {
   MultiDivider2,
   Orientation,
   Direction,
-  Direction9
+  Direction9,
+  State
 };

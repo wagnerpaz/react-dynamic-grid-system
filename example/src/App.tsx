@@ -1,7 +1,13 @@
 import React from 'react';
 import 'react-dynamic-grid-system/dist/index.css';
+import sample from './sample.json';
 
-import { DynamicGridSystem, Cell, Direction9 } from 'react-dynamic-grid-system';
+import {
+  DynamicGridSystem,
+  Cell,
+  Direction9,
+  State
+} from 'react-dynamic-grid-system';
 
 // type ItemProps = {
 //   children?: React.ReactElement;
@@ -76,7 +82,7 @@ import { DynamicGridSystem, Cell, Direction9 } from 'react-dynamic-grid-system';
 const App = () => {
   return (
     <DynamicGridSystem>
-      <Cell direction={Direction9.CENTER}>
+      <Cell direction={Direction9.CENTER} state={sample as State}>
         <div
           style={{
             display: 'flex',

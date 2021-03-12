@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Direction } from './Direction';
+import { State } from './State';
 import useSizeObserver from './hooks/useSizeObserver';
 
 import ThreeDotsVertical from './res/ThreeDotsVertical';
@@ -9,7 +10,7 @@ type Props = {
   children: React.ReactElement;
   secondChildren: React.ReactElement;
   ratio?: number;
-  onOpen?: (direction: Direction) => void;
+  onOpen?: (state?: State) => void;
   transformChildren?: (children: React.ReactElement) => React.ReactElement;
 };
 
@@ -23,6 +24,7 @@ const Divider = ({
   onOpen,
   transformChildren
 }: Props) => {
+  console.log('ratio', ratio);
   const [container, setContainer] = useState<HTMLElement | null>(null);
 
   const [containerSize] = useSizeObserver(container);
@@ -55,7 +57,7 @@ const Divider = ({
 
   useEffect(() => {
     if (!open && size > 0) {
-      onOpen && onOpen(direction);
+      onOpen && onOpen();
       setOpen(true);
     } else if (open && size === 0) {
       setOpen(false);
