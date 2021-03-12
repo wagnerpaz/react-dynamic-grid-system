@@ -9,7 +9,7 @@ type Props = {
 
 const Cell = ({ children, direction }: Props) => {
   const [top, setTop] = useState<React.ReactElement>(<div />);
-  const [right] = useState<React.ReactElement>(<div />);
+  const [right, setRight] = useState<React.ReactElement>(<div />);
   const [bottom, setBottom] = useState<React.ReactElement>(<div />);
   const [left, setLeft] = useState<React.ReactElement>(<div />);
   const [childrenS, setChildrenS] = useState<React.ReactElement>(children);
@@ -42,13 +42,26 @@ const Cell = ({ children, direction }: Props) => {
     setChildrenS(ph);
   };
 
+  const openRight = () => {
+    setRight(<Cell direction={Direction9.RIGHT}>{ph}</Cell>);
+  };
+
+  const openTopRight = () => {
+    setTop(<Cell direction={Direction9.TOP_RIGHT}>{ph}</Cell>);
+    setChildrenS(ph);
+  };
+
+  const openBottomRight = () => {
+    setBottom(<Cell direction={Direction9.BOTTOM_RIGHT}>{ph}</Cell>);
+    setChildrenS(ph);
+  };
+
   switch (direction) {
     case Direction9.CENTER:
       return (
         <MultiDivider
-          top={top}
           right={right}
-          bottom={bottom}
+          rightOnOpen={openRight}
           left={left}
           leftOnOpen={openLeft}
         >
@@ -79,16 +92,38 @@ const Cell = ({ children, direction }: Props) => {
 
     case Direction9.BOTTOM_LEFT:
       return (
-        <MultiDivider bottom={bottom} topOnOpen={openBottomLeft}>
+        <MultiDivider bottom={bottom} bottomOnOpen={openBottomLeft}>
           {childrenS}
         </MultiDivider>
       );
 
-    case Direction9.ONLY_LEFT:
-      return <MultiDivider left={left}>{childrenS}</MultiDivider>;
+    case Direction9.RIGHT:
+      return (
+        <MultiDivider
+          top={top}
+          topOnOpen={openTopRight}
+          bottom={bottom}
+          bottomOnOpen={openBottomRight}
+          right={right}
+          rightOnOpen={openRight}
+        >
+          {childrenS}
+        </MultiDivider>
+      );
 
-    case Direction9.ONLY_TOP:
-      return <MultiDivider top={top}>{childrenS}</MultiDivider>;
+    case Direction9.TOP_RIGHT:
+      return (
+        <MultiDivider top={top} topOnOpen={openTopRight}>
+          {childrenS}
+        </MultiDivider>
+      );
+
+    case Direction9.BOTTOM_RIGHT:
+      return (
+        <MultiDivider bottom={bottom} bottomOnOpen={openBottomRight}>
+          {childrenS}
+        </MultiDivider>
+      );
   }
   return null;
 };
