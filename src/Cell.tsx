@@ -28,9 +28,6 @@ const Cell = ({
   const [right, setRight] = useState<React.ReactElement>(<div />);
   const [bottom, setBottom] = useState<React.ReactElement>(<div />);
   const [left, setLeft] = useState<React.ReactElement>(<div />);
-  const [childrenS, setChildrenS] = useState<React.ReactElement>(children);
-
-  console.log(state);
 
   useEffect(() => {
     if (state?.left) {
@@ -48,9 +45,9 @@ const Cell = ({
     }
     if (state?.bottom) {
       if (direction === Direction9.LEFT) {
-        openBottomLeft(state.top);
+        openBottomLeft(state.bottom);
       } else if (direction === Direction9.RIGHT) {
-        openBottomRight(state.top);
+        openBottomRight(state.bottom);
       }
     }
   }, [state]);
@@ -124,15 +121,15 @@ const Cell = ({
         {ph}
       </Cell>
     );
-    setChildrenS(ph);
   };
 
   const openBottomLeft = (s: State | undefined) => {
     console.log('openBottomLeft', s);
     const ph = (
       <Component
-        {...state?.left?.props}
+        {...s?.props}
         onPropsChanged={(props: any) => {
+          console.log('onPropsChanged bottomLeft');
           onStateChanged &&
             onStateChanged({
               ...state,
@@ -149,6 +146,7 @@ const Cell = ({
         direction={Direction9.BOTTOM_LEFT}
         state={s}
         onStateChanged={(s2) => {
+          console.log('onStateChanged bottomLeft');
           onStateChanged &&
             onStateChanged({
               ...state,
@@ -159,7 +157,6 @@ const Cell = ({
         {ph}
       </Cell>
     );
-    setChildrenS(ph);
   };
 
   const openRight = (s: State | undefined) => {
@@ -223,7 +220,6 @@ const Cell = ({
         {ph}
       </Cell>
     );
-    setChildrenS(ph);
   };
 
   const openBottomRight = (s: State | undefined) => {
@@ -257,7 +253,6 @@ const Cell = ({
         {ph}
       </Cell>
     );
-    setChildrenS(ph);
   };
 
   const topOnRatioChanged = (ratio: number) => {
@@ -307,7 +302,7 @@ const Cell = ({
           leftOnRatioChanged={leftOnRatioChanged}
           leftOnOpen={openLeft}
         >
-          {childrenS}
+          {children}
         </MultiDivider>
       );
 
@@ -329,7 +324,7 @@ const Cell = ({
           leftRatio={state?.left?.ratio}
           leftOnRatioChanged={leftOnRatioChanged}
         >
-          {childrenS}
+          {children}
         </MultiDivider>
       );
 
@@ -343,7 +338,7 @@ const Cell = ({
           topRatio={state?.top?.ratio}
           topOnRatioChanged={topOnRatioChanged}
         >
-          {childrenS}
+          {children}
         </MultiDivider>
       );
 
@@ -357,7 +352,7 @@ const Cell = ({
           bottomRatio={state?.bottom?.ratio}
           bottomOnRatioChanged={bottomOnRatioChanged}
         >
-          {childrenS}
+          {children}
         </MultiDivider>
       );
 
@@ -379,7 +374,7 @@ const Cell = ({
           rightRatio={state?.right?.ratio}
           rightOnRatioChanged={rightOnRatioChanged}
         >
-          {childrenS}
+          {children}
         </MultiDivider>
       );
 
@@ -393,7 +388,7 @@ const Cell = ({
           topRatio={state?.top?.ratio}
           topOnRatioChanged={topOnRatioChanged}
         >
-          {childrenS}
+          {children}
         </MultiDivider>
       );
 
@@ -407,7 +402,7 @@ const Cell = ({
           bottomRatio={state?.bottom?.ratio}
           bottomOnRatioChanged={bottomOnRatioChanged}
         >
-          {childrenS}
+          {children}
         </MultiDivider>
       );
   }

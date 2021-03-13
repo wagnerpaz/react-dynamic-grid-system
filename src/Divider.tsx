@@ -37,7 +37,7 @@ const Divider = ({
   const [size, setSize] = useState(0);
   const [ratioState, setRatioState] = useState(ratio);
   const [dragging, setDragging] = useState(false);
-  const [open, setOpen] = useState(size !== 0);
+  const [open, setOpen] = useState(ratio !== 0);
 
   const top = direction === Direction4.TOP;
   const right = direction === Direction4.RIGHT;
@@ -70,8 +70,6 @@ const Divider = ({
     if (!open && size > 0) {
       onOpen && onOpen();
       setOpen(true);
-    } else if (open && size === 0) {
-      setOpen(false);
     }
   }, [size]);
 

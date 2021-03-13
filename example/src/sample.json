@@ -2,13 +2,29 @@
    "left": {
       "ratio": 0.25,
       "props": {"count": 1},
+      "top": {
+         "ratio": 0.25,
+         "props": {"count": 2},
+         "top": {
+            "ratio": 0.5,
+            "props": {"count": 3}
+         }
+      },
       "bottom": {
          "ratio": 0.25,
-         "props": {"count": 3}
+         "props": {"count": 4},
+         "bottom": {
+            "ratio": 0.5,
+            "props": {"count": 7}
+         }
+      },
+      "left": {
+         "ratio": 0.5,
+         "props": {"count": 5}
       }
    },
    "right": {
       "ratio": 0.25,
-      "props": {"count": 2}
+      "props": {"count": 6}
    }
 }
