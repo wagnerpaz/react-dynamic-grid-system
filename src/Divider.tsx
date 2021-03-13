@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Direction } from './Direction';
+import { Direction4 } from './Direction4';
 // eslint-disable-next-line no-unused-vars
 import { State } from './State';
 import useSizeObserver from './hooks/useSizeObserver';
@@ -7,7 +7,7 @@ import useSizeObserver from './hooks/useSizeObserver';
 import ThreeDotsVertical from './res/ThreeDotsVertical';
 
 type Props = {
-  direction: Direction;
+  direction: Direction4;
   children: React.ReactElement;
   secondChildren: React.ReactElement;
   ratio?: number;
@@ -35,10 +35,10 @@ const Divider = ({
   const [dragging, setDragging] = useState(false);
   const [open, setOpen] = useState(size !== 0);
 
-  const top = direction === Direction.TOP;
-  const right = direction === Direction.RIGHT;
-  const bottom = direction === Direction.BOTTOM;
-  const left = direction === Direction.LEFT;
+  const top = direction === Direction4.TOP;
+  const right = direction === Direction4.RIGHT;
+  const bottom = direction === Direction4.BOTTOM;
+  const left = direction === Direction4.LEFT;
 
   const vertical = right || left;
   const horizontal = top || bottom;

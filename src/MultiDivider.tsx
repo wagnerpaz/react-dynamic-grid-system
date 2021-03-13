@@ -1,5 +1,5 @@
 import React from 'react';
-import { Direction } from './Direction';
+import { Direction4 } from './Direction4';
 // eslint-disable-next-line no-unused-vars
 import { State } from './State';
 import Divider from './Divider';
@@ -50,7 +50,7 @@ const MultiDivider = ({
       children: React.ReactElement
     ): React.ReactElement => (
       <Divider
-        direction={Direction.BOTTOM}
+        direction={Direction4.BOTTOM}
         secondChildren={bottom}
         ratio={bottomRatio}
         onRatioChanged={bottomOnRatioChanged}
@@ -64,7 +64,7 @@ const MultiDivider = ({
   if (top) {
     const topWrapper = (children: React.ReactElement): React.ReactElement => (
       <Divider
-        direction={Direction.TOP}
+        direction={Direction4.TOP}
         secondChildren={top}
         ratio={topRatio}
         onRatioChanged={topOnRatioChanged}
@@ -79,7 +79,7 @@ const MultiDivider = ({
   if (left) {
     const leftWrapper = (children: React.ReactElement): React.ReactElement => (
       <Divider
-        direction={Direction.LEFT}
+        direction={Direction4.LEFT}
         secondChildren={left}
         ratio={leftRatio}
         onRatioChanged={leftOnRatioChanged}
@@ -93,7 +93,7 @@ const MultiDivider = ({
   if (right) {
     const rightWrapper = (children: React.ReactElement): React.ReactElement => (
       <Divider
-        direction={Direction.RIGHT}
+        direction={Direction4.RIGHT}
         secondChildren={right}
         ratio={rightRatio}
         onRatioChanged={rightOnRatioChanged}

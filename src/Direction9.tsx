@@ -8,9 +8,5 @@ export enum Direction9 {
   BOTTOM = 'bottom',
   LEFT = 'left',
   BOTTOM_LEFT = 'bottom_left',
-  TOP_LEFT = 'top_left',
-  ONLY_TOP = 'only_top',
-  ONLY_RIGHT = 'only_right',
-  ONLY_BOTTOM = 'only_bottom',
-  ONLY_LEFT = 'only_left'
+  TOP_LEFT = 'top_left'
 }

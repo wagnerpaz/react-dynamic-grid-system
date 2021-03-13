@@ -2,9 +2,7 @@ import DynamicGridSystem from './DynamicGridSystem';
 import Cell from './Cell';
 import Divider from './Divider';
 import MultiDivider from './MultiDivider';
-import MultiDivider2 from './MultiDivider2';
-import { Orientation } from './Orientation';
-import { Direction } from './Direction';
+import { Direction4 } from './Direction4';
 import { Direction9 } from './Direction9';
 import { State } from './State';
 
@@ -13,9 +11,7 @@ export {
   Cell,
   Divider,
   MultiDivider,
-  MultiDivider2,
-  Orientation,
-  Direction,
+  Direction4,
   Direction9,
   State
 };
