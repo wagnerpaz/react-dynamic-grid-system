@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import isEqual from 'lodash.isequal';
+// import isEqual from 'lodash.isequal';
 import MultiDivider from './MultiDivider';
 import { Direction9 } from './Direction9';
 // eslint-disable-next-line no-unused-vars
@@ -29,13 +29,8 @@ const Cell = ({
   const [bottom, setBottom] = useState<React.ReactElement>(<div />);
   const [left, setLeft] = useState<React.ReactElement>(<div />);
   const [childrenS, setChildrenS] = useState<React.ReactElement>(children);
-  const [stateS, setStateS] = useState<State | undefined>(state);
 
-  useEffect(() => {
-    if (!isEqual(stateS, state)) {
-      onStateChanged && onStateChanged(stateS);
-    }
-  }, [stateS, state]);
+  console.log(state);
 
   useEffect(() => {
     if (state?.left) {
@@ -60,46 +55,53 @@ const Cell = ({
     }
   }, [state]);
 
-  const openLeft = (state: State | undefined) => {
+  const openLeft = (s: State | undefined) => {
+    console.log('openLeft', s);
+
     setLeft(
       <Cell
         color={color}
         hideDivider={hideDivider}
         Component={Component}
         direction={Direction9.LEFT}
-        state={state}
-        onStateChanged={(state) => {
+        state={s}
+        onStateChanged={(s2) => {
           console.log('onStateChanged left');
-          setStateS((stateS) => ({
-            ...stateS,
-            left: { ...stateS?.left, ...state }
-          }));
+          onStateChanged &&
+            onStateChanged({
+              ...state,
+              left: { ...state?.left, ...s2 }
+            });
         }}
       >
         <Component
-          {...stateS?.left?.props}
+          {...s?.props}
           onPropsChanged={(props: any) => {
             console.log('onPropsChanged left');
-            setStateS((stateS) => ({
-              ...stateS,
-              left: { ...stateS?.left, props }
-            }));
+            onStateChanged &&
+              onStateChanged({
+                ...state,
+                left: { ...s, props }
+              });
           }}
         />
       </Cell>
     );
   };
 
-  const openTopLeft = (state: State | undefined) => {
+  const openTopLeft = (s: State | undefined) => {
+    console.log('openTopLeft', s);
+
     const ph = (
       <Component
-        {...stateS?.top?.props}
+        {...s?.props}
         onPropsChanged={(props: any) => {
           console.log('onPropsChanged topLeft');
-          setStateS((stateS) => ({
-            ...stateS,
-            top: { ...stateS?.top, props }
-          }));
+          onStateChanged &&
+            onStateChanged({
+              ...state,
+              top: { ...state?.top, props }
+            });
         }}
       />
     );
@@ -109,12 +111,14 @@ const Cell = ({
         hideDivider={hideDivider}
         Component={Component}
         direction={Direction9.TOP_LEFT}
-        state={state}
+        state={s}
         onStateChanged={(state) => {
-          setStateS((stateS) => ({
-            ...stateS,
-            top: { ...stateS?.top, ...state }
-          }));
+          console.log('onStateChanged topLeft');
+          onStateChanged &&
+            onStateChanged({
+              ...state,
+              top: { ...state?.top, ...s }
+            });
         }}
       >
         {ph}
@@ -123,15 +127,17 @@ const Cell = ({
     setChildrenS(ph);
   };
 
-  const openBottomLeft = (state: State | undefined) => {
+  const openBottomLeft = (s: State | undefined) => {
+    console.log('openBottomLeft', s);
     const ph = (
       <Component
-        {...stateS?.bottom?.props}
+        {...state?.left?.props}
         onPropsChanged={(props: any) => {
-          setStateS((stateS) => ({
-            ...stateS,
-            bottom: { ...stateS?.bottom, props }
-          }));
+          onStateChanged &&
+            onStateChanged({
+              ...state,
+              bottom: { ...state?.bottom, props }
+            });
         }}
       />
     );
@@ -141,12 +147,13 @@ const Cell = ({
         hideDivider={hideDivider}
         Component={Component}
         direction={Direction9.BOTTOM_LEFT}
-        state={state}
-        onStateChanged={(state) => {
-          setStateS((stateS) => ({
-            ...stateS,
-            bottom: { ...stateS?.bottom, ...state }
-          }));
+        state={s}
+        onStateChanged={(s2) => {
+          onStateChanged &&
+            onStateChanged({
+              ...state,
+              bottom: { ...state?.bottom, ...s2 }
+            });
         }}
       >
         {ph}
@@ -155,43 +162,46 @@ const Cell = ({
     setChildrenS(ph);
   };
 
-  const openRight = (state: State | undefined) => {
+  const openRight = (s: State | undefined) => {
     setRight(
       <Cell
         color={color}
         hideDivider={hideDivider}
         Component={Component}
         direction={Direction9.RIGHT}
-        state={state}
-        onStateChanged={(state) => {
-          setStateS((stateS) => ({
-            ...stateS,
-            right: { ...stateS?.right, ...state }
-          }));
+        state={s}
+        onStateChanged={(s2) => {
+          onStateChanged &&
+            onStateChanged({
+              ...state,
+              right: { ...state?.right, ...s2 }
+            });
         }}
       >
         <Component
-          {...stateS?.right?.props}
+          {...state?.right?.props}
           onPropsChanged={(props: any) => {
-            setStateS((stateS) => ({
-              ...stateS,
-              right: { ...stateS?.right, props }
-            }));
+            onStateChanged &&
+              onStateChanged({
+                ...state,
+                right: { ...state?.right, props }
+              });
           }}
         />
       </Cell>
     );
   };
 
-  const openTopRight = (state: State | undefined) => {
+  const openTopRight = (s: State | undefined) => {
     const ph = (
       <Component
-        {...stateS?.top?.props}
+        {...state?.top?.props}
         onPropsChanged={(props: any) => {
-          setStateS((stateS) => ({
-            ...stateS,
-            top: { ...stateS?.top, props }
-          }));
+          onStateChanged &&
+            onStateChanged({
+              ...state,
+              top: { ...state?.top, props }
+            });
         }}
       />
     );
@@ -201,12 +211,13 @@ const Cell = ({
         hideDivider={hideDivider}
         Component={Component}
         direction={Direction9.TOP_RIGHT}
-        state={state}
-        onStateChanged={(state) => {
-          setStateS((stateS) => ({
-            ...stateS,
-            top: { ...stateS?.top, ...state }
-          }));
+        state={s}
+        onStateChanged={(s2) => {
+          onStateChanged &&
+            onStateChanged({
+              ...state,
+              top: { ...state?.top, ...s2 }
+            });
         }}
       >
         {ph}
@@ -215,15 +226,16 @@ const Cell = ({
     setChildrenS(ph);
   };
 
-  const openBottomRight = (state: State | undefined) => {
+  const openBottomRight = (s: State | undefined) => {
     const ph = (
       <Component
-        {...stateS?.bottom?.props}
+        {...state?.bottom?.props}
         onPropsChanged={(props: any) => {
-          setStateS((stateS) => ({
-            ...stateS,
-            bottom: { ...stateS?.bottom, props }
-          }));
+          onStateChanged &&
+            onStateChanged({
+              ...state,
+              bottom: { ...state?.bottom, props }
+            });
         }}
       />
     );
@@ -233,12 +245,13 @@ const Cell = ({
         hideDivider={hideDivider}
         Component={Component}
         direction={Direction9.BOTTOM_RIGHT}
-        state={state}
-        onStateChanged={(state) => {
-          setStateS((stateS) => ({
-            ...stateS,
-            bottom: { ...stateS?.bottom, ...state }
-          }));
+        state={s}
+        onStateChanged={(s2) => {
+          onStateChanged &&
+            onStateChanged({
+              ...state,
+              bottom: { ...state?.bottom, ...s2 }
+            });
         }}
       >
         {ph}
@@ -248,31 +261,35 @@ const Cell = ({
   };
 
   const topOnRatioChanged = (ratio: number) => {
-    setStateS((stateS) => ({
-      ...stateS,
-      top: { ...stateS?.top, ratio }
-    }));
+    onStateChanged &&
+      onStateChanged({
+        ...state,
+        top: { ...state?.top, ratio }
+      });
   };
 
   const rightOnRatioChanged = (ratio: number) => {
-    setStateS((stateS) => ({
-      ...stateS,
-      right: { ...stateS?.right, ratio }
-    }));
+    onStateChanged &&
+      onStateChanged({
+        ...state,
+        right: { ...state?.right, ratio }
+      });
   };
 
   const bottomOnRatioChanged = (ratio: number) => {
-    setStateS((stateS) => ({
-      ...stateS,
-      bottom: { ...stateS?.bottom, ratio }
-    }));
+    onStateChanged &&
+      onStateChanged({
+        ...state,
+        bottom: { ...state?.bottom, ratio }
+      });
   };
 
   const leftOnRatioChanged = (ratio: number) => {
-    setStateS((stateS) => ({
-      ...stateS,
-      left: { ...stateS?.left, ratio }
-    }));
+    onStateChanged &&
+      onStateChanged({
+        ...state,
+        left: { ...state?.left, ratio }
+      });
   };
 
   switch (direction) {
