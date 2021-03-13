@@ -30,15 +30,6 @@ const Cell = ({
   const [childrenS, setChildrenS] = useState<React.ReactElement>(children);
   const [stateS, setStateS] = useState<State | undefined>(state);
 
-  const ph = (
-    <Component
-      {...stateS?.props}
-      onPropsChanged={(props: any) => {
-        setStateS((stateS) => ({ ...stateS, props }));
-      }}
-    />
-  );
-
   useEffect(() => {
     onStateChanged && onStateChanged(stateS);
   }, [stateS]);
@@ -81,12 +72,25 @@ const Cell = ({
           }));
         }}
       >
-        {ph}
+        <Component
+          {...stateS?.left?.props}
+          onPropsChanged={(props: any) => {
+            setStateS((stateS) => ({ ...stateS, props }));
+          }}
+        />
       </Cell>
     );
   };
 
   const openTopLeft = (state: State | undefined) => {
+    const ph = (
+      <Component
+        {...stateS?.top?.props}
+        onPropsChanged={(props: any) => {
+          setStateS((stateS) => ({ ...stateS, props }));
+        }}
+      />
+    );
     setTop(
       <Cell
         color={color}
@@ -108,6 +112,14 @@ const Cell = ({
   };
 
   const openBottomLeft = (state: State | undefined) => {
+    const ph = (
+      <Component
+        {...stateS?.bottom?.props}
+        onPropsChanged={(props: any) => {
+          setStateS((stateS) => ({ ...stateS, props }));
+        }}
+      />
+    );
     setBottom(
       <Cell
         color={color}
@@ -143,12 +155,25 @@ const Cell = ({
           }));
         }}
       >
-        {ph}
+        <Component
+          {...stateS?.right?.props}
+          onPropsChanged={(props: any) => {
+            setStateS((stateS) => ({ ...stateS, props }));
+          }}
+        />
       </Cell>
     );
   };
 
   const openTopRight = (state: State | undefined) => {
+    const ph = (
+      <Component
+        {...stateS?.top?.props}
+        onPropsChanged={(props: any) => {
+          setStateS((stateS) => ({ ...stateS, props }));
+        }}
+      />
+    );
     setTop(
       <Cell
         color={color}
@@ -170,6 +195,14 @@ const Cell = ({
   };
 
   const openBottomRight = (state: State | undefined) => {
+    const ph = (
+      <Component
+        {...stateS?.bottom?.props}
+        onPropsChanged={(props: any) => {
+          setStateS((stateS) => ({ ...stateS, props }));
+        }}
+      />
+    );
     setBottom(
       <Cell
         color={color}
