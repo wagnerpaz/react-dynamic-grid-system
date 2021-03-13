@@ -1,6 +1,7 @@
 import React from 'react';
 import 'react-dynamic-grid-system/dist/index.css';
 import sample from './sample.json';
+import Component from './Component';
 
 import {
   DynamicGridSystem,
@@ -82,7 +83,12 @@ import {
 const App = () => {
   return (
     <DynamicGridSystem>
-      <Cell direction={Direction9.CENTER} state={sample as State}>
+      <Cell
+        Component={Component}
+        direction={Direction9.CENTER}
+        state={sample as State}
+        onStateChanged={(state) => console.log(state)}
+      >
         <div
           style={{
             display: 'flex',

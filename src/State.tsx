@@ -4,4 +4,5 @@ export type State = {
   top?: State;
   bottom?: State;
   ratio?: number;
+  props?: any;
 };

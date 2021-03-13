@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Direction } from './Direction';
+// eslint-disable-next-line no-unused-vars
 import { State } from './State';
 import useSizeObserver from './hooks/useSizeObserver';
 
@@ -10,6 +11,7 @@ type Props = {
   children: React.ReactElement;
   secondChildren: React.ReactElement;
   ratio?: number;
+  onRatioChanged?: (ratio: number) => void;
   onOpen?: (state?: State) => void;
   transformChildren?: (children: React.ReactElement) => React.ReactElement;
 };
@@ -21,10 +23,10 @@ const Divider = ({
   secondChildren,
   ratio = 0,
   children,
+  onRatioChanged,
   onOpen,
   transformChildren
 }: Props) => {
-  console.log('ratio', ratio);
   const [container, setContainer] = useState<HTMLElement | null>(null);
 
   const [containerSize] = useSizeObserver(container);
@@ -48,7 +50,9 @@ const Divider = ({
 
   useEffect(() => {
     if (containerSize.width === 0 && containerSize.height === 0) return;
-    setRatioState(size / containerSizeValue);
+    const newRatio = size / containerSizeValue;
+    setRatioState(newRatio);
+    onRatioChanged && onRatioChanged(newRatio);
   }, [size]);
 
   useEffect(() => {
