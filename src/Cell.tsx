@@ -5,6 +5,8 @@ import { Direction9 } from './Direction9';
 import { State } from './State';
 
 type Props = {
+  color?: string;
+  hideDivider?: boolean;
   direction: Direction9;
   state?: State;
   onStateChanged?: (state: State | undefined) => void;
@@ -13,6 +15,8 @@ type Props = {
 };
 
 const Cell = ({
+  color,
+  hideDivider,
   children,
   direction,
   state,
@@ -64,6 +68,8 @@ const Cell = ({
   const openLeft = (state: State | undefined) => {
     setLeft(
       <Cell
+        color={color}
+        hideDivider={hideDivider}
         Component={Component}
         direction={Direction9.LEFT}
         state={state}
@@ -82,6 +88,8 @@ const Cell = ({
   const openTopLeft = (state: State | undefined) => {
     setTop(
       <Cell
+        color={color}
+        hideDivider={hideDivider}
         Component={Component}
         direction={Direction9.TOP_LEFT}
         state={state}
@@ -101,6 +109,8 @@ const Cell = ({
   const openBottomLeft = (state: State | undefined) => {
     setBottom(
       <Cell
+        color={color}
+        hideDivider={hideDivider}
         Component={Component}
         direction={Direction9.BOTTOM_LEFT}
         state={state}
@@ -120,6 +130,8 @@ const Cell = ({
   const openRight = (state: State | undefined) => {
     setRight(
       <Cell
+        color={color}
+        hideDivider={hideDivider}
         Component={Component}
         direction={Direction9.RIGHT}
         state={state}
@@ -138,6 +150,8 @@ const Cell = ({
   const openTopRight = (state: State | undefined) => {
     setTop(
       <Cell
+        color={color}
+        hideDivider={hideDivider}
         Component={Component}
         direction={Direction9.TOP_RIGHT}
         state={state}
@@ -157,6 +171,8 @@ const Cell = ({
   const openBottomRight = (state: State | undefined) => {
     setBottom(
       <Cell
+        color={color}
+        hideDivider={hideDivider}
         Component={Component}
         direction={Direction9.BOTTOM_RIGHT}
         state={state}
@@ -205,6 +221,8 @@ const Cell = ({
     case Direction9.CENTER:
       return (
         <MultiDivider
+          color={color}
+          hideDividers={hideDivider}
           right={right}
           rightOnOpen={openRight}
           rightRatio={state?.right?.ratio}
@@ -221,6 +239,8 @@ const Cell = ({
     case Direction9.LEFT:
       return (
         <MultiDivider
+          color={color}
+          hideDividers={hideDivider}
           top={top}
           topOnOpen={openTopLeft}
           topRatio={state?.top?.ratio}
@@ -241,6 +261,8 @@ const Cell = ({
     case Direction9.TOP_LEFT:
       return (
         <MultiDivider
+          color={color}
+          hideDividers={hideDivider}
           top={top}
           topOnOpen={openTopLeft}
           topRatio={state?.top?.ratio}
@@ -253,6 +275,8 @@ const Cell = ({
     case Direction9.BOTTOM_LEFT:
       return (
         <MultiDivider
+          color={color}
+          hideDividers={hideDivider}
           bottom={bottom}
           bottomOnOpen={openBottomLeft}
           bottomRatio={state?.bottom?.ratio}
@@ -265,6 +289,8 @@ const Cell = ({
     case Direction9.RIGHT:
       return (
         <MultiDivider
+          color={color}
+          hideDividers={hideDivider}
           top={top}
           topOnOpen={openTopRight}
           topRatio={state?.top?.ratio}
@@ -285,6 +311,8 @@ const Cell = ({
     case Direction9.TOP_RIGHT:
       return (
         <MultiDivider
+          color={color}
+          hideDividers={hideDivider}
           top={top}
           topOnOpen={openTopRight}
           topRatio={state?.top?.ratio}
@@ -297,6 +325,8 @@ const Cell = ({
     case Direction9.BOTTOM_RIGHT:
       return (
         <MultiDivider
+          color={color}
+          hideDividers={hideDivider}
           bottom={bottom}
           bottomOnOpen={openBottomRight}
           bottomRatio={state?.bottom?.ratio}

@@ -1,10 +1,11 @@
 import React from 'react';
 
 type Props = {
+  backgroundColor?: string;
   children: React.ReactElement;
 };
 
-const DynamicGridSystem = ({ children }: Props) => {
+const DynamicGridSystem = ({ children, backgroundColor }: Props) => {
   return (
     <div
       style={{
@@ -13,7 +14,7 @@ const DynamicGridSystem = ({ children }: Props) => {
         right: 0,
         bottom: 0,
         left: 0,
-        backgroundColor: 'red'
+        backgroundColor
       }}
     >
       <div

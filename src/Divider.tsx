@@ -7,6 +7,8 @@ import useSizeObserver from './hooks/useSizeObserver';
 import ThreeDotsVertical from './res/ThreeDotsVertical';
 
 type Props = {
+  color?: string;
+  hideDivider?: boolean;
   direction: Direction4;
   children: React.ReactElement;
   secondChildren: React.ReactElement;
@@ -19,6 +21,8 @@ type Props = {
 const DIVIDER_WIDTH = 10;
 
 const Divider = ({
+  color,
+  hideDivider = false,
   direction,
   secondChildren,
   ratio = 0,
@@ -103,8 +107,12 @@ const Divider = ({
       style={{
         display: 'flex',
         flexDirection: vertical ? 'row' : 'column',
-        width: horizontal ? '100%' : containerSize.width - size - DIVIDER_WIDTH,
-        height: vertical ? '100%' : containerSize.height - size - DIVIDER_WIDTH,
+        width: horizontal
+          ? '100%'
+          : containerSize.width - size - (!hideDivider ? DIVIDER_WIDTH : 0),
+        height: vertical
+          ? '100%'
+          : containerSize.height - size - (!hideDivider ? DIVIDER_WIDTH : 0),
         overflow: 'hidden'
       }}
     >
@@ -141,20 +149,22 @@ const Divider = ({
       }}
     >
       {!second ? firstChildrenWrapper : secondChildrenWrapper}
-      <div
-        className='divisor'
-        style={{
-          width: vertical ? DIVIDER_WIDTH : '100%',
-          height: horizontal ? DIVIDER_WIDTH : '100%',
-          cursor: vertical ? 'col-resize' : 'row-resize',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
-        onMouseDown={onMouseDown}
-      >
-        <ThreeDotsVertical horizontal={horizontal} />
-      </div>
+      {!hideDivider ? (
+        <div
+          className='divisor'
+          style={{
+            width: vertical ? DIVIDER_WIDTH : '100%',
+            height: horizontal ? DIVIDER_WIDTH : '100%',
+            cursor: vertical ? 'col-resize' : 'row-resize',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+          onMouseDown={onMouseDown}
+        >
+          <ThreeDotsVertical horizontal={horizontal} color={color} />
+        </div>
+      ) : null}
       {second ? firstChildrenWrapper : secondChildrenWrapper}
     </div>
   );

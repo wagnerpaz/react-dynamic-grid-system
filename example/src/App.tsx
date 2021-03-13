@@ -82,8 +82,10 @@ import {
 
 const App = () => {
   return (
-    <DynamicGridSystem>
+    <DynamicGridSystem backgroundColor='#FFF'>
       <Cell
+        color='#000'
+        hideDivider={true}
         Component={Component}
         direction={Direction9.CENTER}
         state={sample as State}

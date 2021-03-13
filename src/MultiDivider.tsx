@@ -5,6 +5,8 @@ import { State } from './State';
 import Divider from './Divider';
 
 type Props = {
+  color?: string;
+  hideDividers?: boolean;
   top?: React.ReactElement;
   topRatio?: number;
   topOnRatioChanged?: (ratio: number) => void;
@@ -25,6 +27,8 @@ type Props = {
 };
 
 const MultiDivider = ({
+  color,
+  hideDividers,
   top,
   topRatio,
   topOnRatioChanged,
@@ -50,6 +54,8 @@ const MultiDivider = ({
       children: React.ReactElement
     ): React.ReactElement => (
       <Divider
+        color={color}
+        hideDivider={hideDividers}
         direction={Direction4.BOTTOM}
         secondChildren={bottom}
         ratio={bottomRatio}
@@ -64,6 +70,8 @@ const MultiDivider = ({
   if (top) {
     const topWrapper = (children: React.ReactElement): React.ReactElement => (
       <Divider
+        color={color}
+        hideDivider={hideDividers}
         direction={Direction4.TOP}
         secondChildren={top}
         ratio={topRatio}
@@ -79,6 +87,8 @@ const MultiDivider = ({
   if (left) {
     const leftWrapper = (children: React.ReactElement): React.ReactElement => (
       <Divider
+        color={color}
+        hideDivider={hideDividers}
         direction={Direction4.LEFT}
         secondChildren={left}
         ratio={leftRatio}
@@ -93,6 +103,8 @@ const MultiDivider = ({
   if (right) {
     const rightWrapper = (children: React.ReactElement): React.ReactElement => (
       <Divider
+        color={color}
+        hideDivider={hideDividers}
         direction={Direction4.RIGHT}
         secondChildren={right}
         ratio={rightRatio}
