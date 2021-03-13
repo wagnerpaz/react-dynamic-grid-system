@@ -56,10 +56,7 @@ const Divider = ({
     if (containerSize.width === 0 && containerSize.height === 0) return;
     const newRatio = size / containerSizeValue;
     setRatioState(newRatio);
-    if (ratio !== newRatio && ratio !== 0) {
-      console.log('onRatioChanged', ratio, newRatio);
-      onRatioChanged && onRatioChanged(newRatio);
-    }
+    onRatioChanged && onRatioChanged(newRatio);
   }, [size]);
 
   useEffect(() => {
