@@ -32,37 +32,33 @@ const Cell = ({
   const [stateS, setStateS] = useState<State | undefined>(state);
 
   useEffect(() => {
-    if (!isEqual(state, stateS)) {
-      setStateS(state);
+    if (!isEqual(stateS, state)) {
+      onStateChanged && onStateChanged(stateS);
+    }
+  }, [stateS, state]);
+
+  useEffect(() => {
+    if (state?.left) {
+      openLeft(state.left);
+    }
+    if (state?.right) {
+      openRight(state.right);
+    }
+    if (state?.top) {
+      if (direction === Direction9.LEFT) {
+        openTopLeft(state.top);
+      } else if (direction === Direction9.RIGHT) {
+        openTopRight(state.top);
+      }
+    }
+    if (state?.bottom) {
+      if (direction === Direction9.LEFT) {
+        openBottomLeft(state.top);
+      } else if (direction === Direction9.RIGHT) {
+        openBottomRight(state.top);
+      }
     }
   }, [state]);
-
-  useEffect(() => {
-    onStateChanged && onStateChanged(stateS);
-  }, [stateS]);
-
-  useEffect(() => {
-    if (stateS?.left) {
-      openLeft(stateS.left);
-    }
-    if (stateS?.right) {
-      openRight(stateS.right);
-    }
-    if (stateS?.top) {
-      if (direction === Direction9.LEFT) {
-        openTopLeft(stateS.top);
-      } else if (direction === Direction9.RIGHT) {
-        openTopRight(stateS.top);
-      }
-    }
-    if (stateS?.bottom) {
-      if (direction === Direction9.LEFT) {
-        openBottomLeft(stateS.top);
-      } else if (direction === Direction9.RIGHT) {
-        openBottomRight(stateS.top);
-      }
-    }
-  }, [stateS]);
 
   const openLeft = (state: State | undefined) => {
     setLeft(
@@ -73,6 +69,7 @@ const Cell = ({
         direction={Direction9.LEFT}
         state={state}
         onStateChanged={(state) => {
+          console.log('onStateChanged left');
           setStateS((stateS) => ({
             ...stateS,
             left: { ...stateS?.left, ...state }
@@ -82,6 +79,7 @@ const Cell = ({
         <Component
           {...stateS?.left?.props}
           onPropsChanged={(props: any) => {
+            console.log('onPropsChanged left');
             setStateS((stateS) => ({
               ...stateS,
               left: { ...stateS?.left, props }
@@ -97,6 +95,7 @@ const Cell = ({
       <Component
         {...stateS?.top?.props}
         onPropsChanged={(props: any) => {
+          console.log('onPropsChanged topLeft');
           setStateS((stateS) => ({
             ...stateS,
             top: { ...stateS?.top, props }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'react-dynamic-grid-system/dist/index.css';
 import sample from './sample.json';
 import Component from './Component';
@@ -81,6 +81,8 @@ import {
 // };
 
 const App = () => {
+  const [state, setState] = useState<State | undefined>(sample as State);
+  console.log('state', state);
   return (
     <DynamicGridSystem backgroundColor='#FFF'>
       <Cell
@@ -88,8 +90,8 @@ const App = () => {
         hideDivider={false}
         Component={Component}
         direction={Direction9.CENTER}
-        state={sample as State}
-        onStateChanged={(state) => console.log(state)}
+        state={state}
+        onStateChanged={(state: State | undefined) => setState(state)}
       >
         <div
           style={{

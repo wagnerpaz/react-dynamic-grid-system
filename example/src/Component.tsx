@@ -18,7 +18,7 @@ const Component = ({ count = 0, onPropsChanged }: Props) => {
           backgroundColor: 'blue'
         }}
       >
-        {countS}
+        {count}
       </div>
       <button
         onClick={() => {
