@@ -85,7 +85,7 @@ const App = () => {
     <DynamicGridSystem backgroundColor='#FFF'>
       <Cell
         color='#000'
-        hideDivider={true}
+        hideDivider={false}
         Component={Component}
         direction={Direction9.CENTER}
         state={sample as State}
