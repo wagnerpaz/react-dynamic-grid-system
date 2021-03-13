@@ -82,7 +82,10 @@ const Cell = ({
         <Component
           {...stateS?.left?.props}
           onPropsChanged={(props: any) => {
-            setStateS((stateS) => ({ ...stateS?.left, props }));
+            setStateS((stateS) => ({
+              ...stateS,
+              left: { ...stateS?.left, props }
+            }));
           }}
         />
       </Cell>
@@ -94,7 +97,10 @@ const Cell = ({
       <Component
         {...stateS?.top?.props}
         onPropsChanged={(props: any) => {
-          setStateS((stateS) => ({ ...stateS?.top, props }));
+          setStateS((stateS) => ({
+            ...stateS,
+            top: { ...stateS?.top, props }
+          }));
         }}
       />
     );
@@ -123,7 +129,10 @@ const Cell = ({
       <Component
         {...stateS?.bottom?.props}
         onPropsChanged={(props: any) => {
-          setStateS((stateS) => ({ ...stateS?.bottom, props }));
+          setStateS((stateS) => ({
+            ...stateS,
+            bottom: { ...stateS?.bottom, props }
+          }));
         }}
       />
     );
@@ -165,7 +174,10 @@ const Cell = ({
         <Component
           {...stateS?.right?.props}
           onPropsChanged={(props: any) => {
-            setStateS((stateS) => ({ ...stateS?.right, props }));
+            setStateS((stateS) => ({
+              ...stateS,
+              right: { ...stateS?.right, props }
+            }));
           }}
         />
       </Cell>
@@ -177,7 +189,10 @@ const Cell = ({
       <Component
         {...stateS?.top?.props}
         onPropsChanged={(props: any) => {
-          setStateS((stateS) => ({ ...stateS?.top, props }));
+          setStateS((stateS) => ({
+            ...stateS,
+            top: { ...stateS?.top, props }
+          }));
         }}
       />
     );
@@ -206,7 +221,10 @@ const Cell = ({
       <Component
         {...stateS?.bottom?.props}
         onPropsChanged={(props: any) => {
-          setStateS((stateS) => ({ ...stateS?.bottom, props }));
+          setStateS((stateS) => ({
+            ...stateS,
+            bottom: { ...stateS?.bottom, props }
+          }));
         }}
       />
     );
