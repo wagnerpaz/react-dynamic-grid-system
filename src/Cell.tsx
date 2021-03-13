@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import isEqual from 'lodash.isequal';
 import MultiDivider from './MultiDivider';
 import { Direction9 } from './Direction9';
 // eslint-disable-next-line no-unused-vars
@@ -29,6 +30,12 @@ const Cell = ({
   const [left, setLeft] = useState<React.ReactElement>(<div />);
   const [childrenS, setChildrenS] = useState<React.ReactElement>(children);
   const [stateS, setStateS] = useState<State | undefined>(state);
+
+  useEffect(() => {
+    if (!isEqual(state, stateS)) {
+      setStateS(state);
+    }
+  }, [state]);
 
   useEffect(() => {
     onStateChanged && onStateChanged(stateS);
