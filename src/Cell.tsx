@@ -32,6 +32,7 @@ const Cell = ({
 
   const ph = (
     <Component
+      {...stateS?.props}
       onPropsChanged={(props: any) => {
         setStateS((stateS) => ({ ...stateS, props }));
       }}
