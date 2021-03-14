@@ -50,7 +50,7 @@ const Cell = ({
         openBottomRight(state.bottom);
       }
     }
-  }, [state]);
+  }, [state, hideDivider, color]);
 
   const openLeft = (s: State | undefined) => {
     // console.log('openLeft', s);
