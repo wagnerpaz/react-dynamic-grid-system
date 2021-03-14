@@ -147,22 +147,28 @@ const Divider = ({
       }}
     >
       {!second ? firstChildrenWrapper : secondChildrenWrapper}
-      {!hideDivider ? (
-        <div
-          className='divisor'
-          style={{
-            width: vertical ? DIVIDER_WIDTH : '100%',
-            height: horizontal ? DIVIDER_WIDTH : '100%',
-            cursor: vertical ? 'col-resize' : 'row-resize',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-          onMouseDown={onMouseDown}
-        >
+
+      <div
+        className='divisor'
+        style={{
+          width: vertical ? DIVIDER_WIDTH : '100%',
+          height: horizontal ? DIVIDER_WIDTH : '100%',
+          cursor: !hideDivider
+            ? vertical
+              ? 'col-resize'
+              : 'row-resize'
+            : undefined,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+        onMouseDown={!hideDivider ? onMouseDown : undefined}
+        draggable={false}
+      >
+        {!hideDivider ? (
           <ThreeDotsVertical horizontal={horizontal} color={color} />
-        </div>
-      ) : null}
+        ) : null}
+      </div>
       {second ? firstChildrenWrapper : secondChildrenWrapper}
     </div>
   );

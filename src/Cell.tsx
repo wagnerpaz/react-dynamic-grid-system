@@ -53,7 +53,7 @@ const Cell = ({
   }, [state]);
 
   const openLeft = (s: State | undefined) => {
-    console.log('openLeft', s);
+    // console.log('openLeft', s);
 
     setLeft(
       <Cell
@@ -63,7 +63,7 @@ const Cell = ({
         direction={Direction9.LEFT}
         state={s}
         onStateChanged={(s2) => {
-          console.log('onStateChanged left');
+          // console.log('onStateChanged left');
           onStateChanged &&
             onStateChanged({
               ...state,
@@ -74,7 +74,7 @@ const Cell = ({
         <Component
           {...s?.props}
           onPropsChanged={(props: any) => {
-            console.log('onPropsChanged left');
+            // console.log('onPropsChanged left');
             onStateChanged &&
               onStateChanged({
                 ...state,
@@ -87,13 +87,13 @@ const Cell = ({
   };
 
   const openTopLeft = (s: State | undefined) => {
-    console.log('openTopLeft', s);
+    // console.log('openTopLeft', s);
 
     const ph = (
       <Component
         {...s?.props}
         onPropsChanged={(props: any) => {
-          console.log('onPropsChanged topLeft');
+          // console.log('onPropsChanged topLeft');
           onStateChanged &&
             onStateChanged({
               ...state,
@@ -110,7 +110,7 @@ const Cell = ({
         direction={Direction9.TOP_LEFT}
         state={s}
         onStateChanged={(state) => {
-          console.log('onStateChanged topLeft');
+          // console.log('onStateChanged topLeft');
           onStateChanged &&
             onStateChanged({
               ...state,
@@ -124,12 +124,12 @@ const Cell = ({
   };
 
   const openBottomLeft = (s: State | undefined) => {
-    console.log('openBottomLeft', s);
+    // console.log('openBottomLeft', s);
     const ph = (
       <Component
         {...s?.props}
         onPropsChanged={(props: any) => {
-          console.log('onPropsChanged bottomLeft');
+          // console.log('onPropsChanged bottomLeft');
           onStateChanged &&
             onStateChanged({
               ...state,
@@ -146,7 +146,7 @@ const Cell = ({
         direction={Direction9.BOTTOM_LEFT}
         state={s}
         onStateChanged={(s2) => {
-          console.log('onStateChanged bottomLeft');
+          // console.log('onStateChanged bottomLeft');
           onStateChanged &&
             onStateChanged({
               ...state,
