@@ -35,7 +35,6 @@ const Divider = ({
 
   const [containerSize] = useSizeObserver(container);
   const [size, setSize] = useState(0);
-  const [ratioState, setRatioState] = useState(ratio);
   const [dragging, setDragging] = useState(false);
   const [open, setOpen] = useState(ratio !== 0);
 
@@ -55,13 +54,14 @@ const Divider = ({
   useEffect(() => {
     if (containerSize.width === 0 && containerSize.height === 0) return;
     const newRatio = size / containerSizeValue;
-    setRatioState(newRatio);
-    onRatioChanged && onRatioChanged(newRatio);
+    if (newRatio !== ratio) {
+      onRatioChanged && onRatioChanged(newRatio);
+    }
   }, [size]);
 
   useEffect(() => {
-    setSize(containerSizeValue * ratioState);
-  }, [containerSize, ratioState]);
+    setSize(containerSizeValue * ratio);
+  }, [containerSize, ratio]);
 
   useEffect(() => {
     if (!open && size > 0) {
