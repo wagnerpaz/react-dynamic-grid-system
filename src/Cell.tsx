@@ -24,10 +24,10 @@ const Cell = ({
   Component,
   onStateChanged
 }: Props) => {
-  const [top, setTop] = useState<React.ReactElement>(<div />);
-  const [right, setRight] = useState<React.ReactElement>(<div />);
-  const [bottom, setBottom] = useState<React.ReactElement>(<div />);
-  const [left, setLeft] = useState<React.ReactElement>(<div />);
+  const [top, setTop] = useState<React.ReactElement | boolean>(true);
+  const [right, setRight] = useState<React.ReactElement | boolean>(true);
+  const [bottom, setBottom] = useState<React.ReactElement | boolean>(true);
+  const [left, setLeft] = useState<React.ReactElement | boolean>(true);
   const [onTopCloseListener, setTopOnCloseListener] = useState<
     (state: State) => void
   >();

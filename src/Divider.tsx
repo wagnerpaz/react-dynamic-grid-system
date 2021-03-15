@@ -11,12 +11,11 @@ type Props = {
   hideDivider?: boolean;
   direction: Direction4;
   children: React.ReactElement;
-  secondChildren: React.ReactElement;
+  secondChildren: React.ReactElement | boolean;
   ratio?: number;
   onRatioChanged?: (ratio: number) => void;
   onOpen?: (state?: State) => void;
   onClose?: (state?: State) => void;
-  transformChildren?: (children: React.ReactElement) => React.ReactElement;
 };
 
 const DIVIDER_WIDTH = 10;
@@ -30,8 +29,7 @@ const Divider = ({
   children,
   onRatioChanged,
   onOpen,
-  onClose,
-  transformChildren
+  onClose
 }: Props) => {
   const [container, setContainer] = useState<HTMLElement | null>(null);
 
@@ -135,11 +133,7 @@ const Divider = ({
         overflow: 'hidden'
       }}
     >
-      {size > 0
-        ? transformChildren
-          ? transformChildren(children)
-          : children
-        : children}
+      {children}
     </div>
   );
 

@@ -10,6 +10,12 @@ const Component = ({ count = 0, onPropsChanged, onCloseListener }: Props) => {
   const [countS, setCountS] = useState(count);
 
   useEffect(() => {
+    return () => {
+      console.log('destroied');
+    };
+  }, []);
+
+  useEffect(() => {
     onCloseListener(() => {
       console.log('closed', count);
     });
