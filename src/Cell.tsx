@@ -67,12 +67,16 @@ const Cell = ({
           onStateChanged &&
             onStateChanged({
               ...state,
-              left: { ...state?.left, ...s2 }
+              left: {
+                ...state?.left,
+                ...s2,
+                props: state?.left?.ratio ? state.left.ratio : undefined
+              }
             });
         }}
       >
         <Component
-          {...s?.props}
+          {...s}
           onPropsChanged={(props: any) => {
             // console.log('onPropsChanged left');
             onStateChanged &&
@@ -91,7 +95,7 @@ const Cell = ({
 
     const ph = (
       <Component
-        {...s?.props}
+        {...s}
         onPropsChanged={(props: any) => {
           // console.log('onPropsChanged topLeft');
           onStateChanged &&
@@ -109,12 +113,16 @@ const Cell = ({
         Component={Component}
         direction={Direction9.TOP_LEFT}
         state={s}
-        onStateChanged={(state) => {
+        onStateChanged={(s2) => {
           // console.log('onStateChanged topLeft');
           onStateChanged &&
             onStateChanged({
               ...state,
-              top: { ...state?.top, ...s }
+              top: {
+                ...state?.top,
+                ...s2,
+                props: state?.top?.ratio ? state.top.ratio : undefined
+              }
             });
         }}
       >
@@ -127,7 +135,7 @@ const Cell = ({
     // console.log('openBottomLeft', s);
     const ph = (
       <Component
-        {...s?.props}
+        {...s}
         onPropsChanged={(props: any) => {
           // console.log('onPropsChanged bottomLeft');
           onStateChanged &&
@@ -150,7 +158,11 @@ const Cell = ({
           onStateChanged &&
             onStateChanged({
               ...state,
-              bottom: { ...state?.bottom, ...s2 }
+              bottom: {
+                ...state?.bottom,
+                ...s2,
+                props: state?.bottom?.ratio ? state.bottom.ratio : undefined
+              }
             });
         }}
       >
@@ -171,12 +183,16 @@ const Cell = ({
           onStateChanged &&
             onStateChanged({
               ...state,
-              right: { ...state?.right, ...s2 }
+              right: {
+                ...state?.right,
+                ...s2,
+                props: state?.right?.ratio ? state.right.ratio : undefined
+              }
             });
         }}
       >
         <Component
-          {...state?.right?.props}
+          {...s}
           onPropsChanged={(props: any) => {
             onStateChanged &&
               onStateChanged({
@@ -192,7 +208,7 @@ const Cell = ({
   const openTopRight = (s: State | undefined) => {
     const ph = (
       <Component
-        {...state?.top?.props}
+        {...s}
         onPropsChanged={(props: any) => {
           onStateChanged &&
             onStateChanged({
@@ -213,7 +229,11 @@ const Cell = ({
           onStateChanged &&
             onStateChanged({
               ...state,
-              top: { ...state?.top, ...s2 }
+              top: {
+                ...state?.top,
+                ...s2,
+                props: state?.top?.ratio ? state.top.ratio : undefined
+              }
             });
         }}
       >
@@ -225,7 +245,7 @@ const Cell = ({
   const openBottomRight = (s: State | undefined) => {
     const ph = (
       <Component
-        {...state?.bottom?.props}
+        {...s}
         onPropsChanged={(props: any) => {
           onStateChanged &&
             onStateChanged({
@@ -246,7 +266,11 @@ const Cell = ({
           onStateChanged &&
             onStateChanged({
               ...state,
-              bottom: { ...state?.bottom, ...s2 }
+              bottom: {
+                ...state?.bottom,
+                ...s2,
+                props: state?.top?.ratio ? state.top.ratio : undefined
+              }
             });
         }}
       >

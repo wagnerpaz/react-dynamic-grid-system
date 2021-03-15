@@ -15,6 +15,7 @@ type Props = {
   ratio?: number;
   onRatioChanged?: (ratio: number) => void;
   onOpen?: (state?: State) => void;
+  onClose?: (state?: State) => void;
   transformChildren?: (children: React.ReactElement) => React.ReactElement;
 };
 
@@ -29,6 +30,7 @@ const Divider = ({
   children,
   onRatioChanged,
   onOpen,
+  onClose,
   transformChildren
 }: Props) => {
   const [container, setContainer] = useState<HTMLElement | null>(null);
@@ -64,9 +66,13 @@ const Divider = ({
   }, [containerSize, ratio]);
 
   useEffect(() => {
-    if (!open && size > 0) {
+    if (!open && size > 10) {
       onOpen && onOpen();
       setOpen(true);
+    } else if (open && size <= 10) {
+      setSize(0);
+      setOpen(false);
+      onClose && onClose();
     }
   }, [size]);
 

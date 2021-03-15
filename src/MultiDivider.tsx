@@ -11,18 +11,22 @@ type Props = {
   topRatio?: number;
   topOnRatioChanged?: (ratio: number) => void;
   topOnOpen?: (state?: State) => void;
+  topOnClose?: (state?: State) => void;
   right?: React.ReactElement;
   rightRatio?: number;
   rightOnRatioChanged?: (ratio: number) => void;
   rightOnOpen?: (state?: State) => void;
+  rightOnClose?: (state?: State) => void;
   bottom?: React.ReactElement;
   bottomRatio?: number;
   bottomOnRatioChanged?: (ratio: number) => void;
   bottomOnOpen?: (state?: State) => void;
+  bottomOnClose?: (state?: State) => void;
   left?: React.ReactElement;
   leftRatio?: number;
   leftOnRatioChanged?: (ratio: number) => void;
   leftOnOpen?: (state?: State) => void;
+  leftOnClose?: (state?: State) => void;
   children: React.ReactElement;
 };
 
@@ -33,18 +37,22 @@ const MultiDivider = ({
   topRatio,
   topOnRatioChanged,
   topOnOpen,
+  topOnClose,
   right,
   rightRatio,
   rightOnRatioChanged,
   rightOnOpen,
+  rightOnClose,
   bottom,
   bottomRatio,
   bottomOnRatioChanged,
   bottomOnOpen,
+  bottomOnClose,
   left,
   leftRatio,
   leftOnRatioChanged,
   leftOnOpen,
+  leftOnClose,
   children
 }: Props) => {
   let child: React.ReactElement = children;
@@ -61,6 +69,7 @@ const MultiDivider = ({
         ratio={bottomRatio}
         onRatioChanged={bottomOnRatioChanged}
         onOpen={bottomOnOpen}
+        onClose={bottomOnClose}
       >
         {children}
       </Divider>
@@ -77,6 +86,7 @@ const MultiDivider = ({
         ratio={topRatio}
         onRatioChanged={topOnRatioChanged}
         onOpen={topOnOpen}
+        onClose={topOnClose}
       >
         {children}
       </Divider>
@@ -94,6 +104,7 @@ const MultiDivider = ({
         ratio={leftRatio}
         onRatioChanged={leftOnRatioChanged}
         onOpen={leftOnOpen}
+        onClose={leftOnClose}
       >
         {children}
       </Divider>
@@ -110,6 +121,7 @@ const MultiDivider = ({
         ratio={rightRatio}
         onRatioChanged={rightOnRatioChanged}
         onOpen={rightOnOpen}
+        onClose={rightOnClose}
       >
         {children}
       </Divider>
