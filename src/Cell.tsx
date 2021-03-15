@@ -77,6 +77,7 @@ const Cell = ({
       >
         <Component
           {...s}
+          {...s?.props}
           onPropsChanged={(props: any) => {
             // console.log('onPropsChanged left');
             onStateChanged &&
@@ -96,6 +97,7 @@ const Cell = ({
     const ph = (
       <Component
         {...s}
+        {...s?.props}
         onPropsChanged={(props: any) => {
           // console.log('onPropsChanged topLeft');
           onStateChanged &&
@@ -136,6 +138,7 @@ const Cell = ({
     const ph = (
       <Component
         {...s}
+        {...s?.props}
         onPropsChanged={(props: any) => {
           // console.log('onPropsChanged bottomLeft');
           onStateChanged &&
@@ -193,6 +196,7 @@ const Cell = ({
       >
         <Component
           {...s}
+          {...s?.props}
           onPropsChanged={(props: any) => {
             onStateChanged &&
               onStateChanged({
@@ -209,6 +213,7 @@ const Cell = ({
     const ph = (
       <Component
         {...s}
+        {...s?.props}
         onPropsChanged={(props: any) => {
           onStateChanged &&
             onStateChanged({
@@ -246,6 +251,7 @@ const Cell = ({
     const ph = (
       <Component
         {...s}
+        {...s?.props}
         onPropsChanged={(props: any) => {
           onStateChanged &&
             onStateChanged({
