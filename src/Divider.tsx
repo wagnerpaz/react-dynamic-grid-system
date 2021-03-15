@@ -55,22 +55,25 @@ const Divider = ({
 
   useEffect(() => {
     if (containerSize.width === 0 && containerSize.height === 0) return;
-    const newRatio = size / containerSizeValue;
+    const newRatio = containerSizeValue > 0 ? size / containerSizeValue : 0;
     if (newRatio !== ratio) {
       onRatioChanged && onRatioChanged(newRatio);
     }
   }, [size]);
 
   useEffect(() => {
-    setSize(containerSizeValue * ratio);
+    const newSize = containerSizeValue * ratio;
+    if (size !== newSize) {
+      setSize(newSize);
+    }
   }, [containerSize, ratio]);
 
   useEffect(() => {
     if (!open && size > 10) {
       onOpen && onOpen();
       setOpen(true);
-    } else if (open && size <= 10) {
-      setSize(0);
+    } else if (size <= 10) {
+      onRatioChanged && onRatioChanged(0);
       setOpen(false);
       onClose && onClose();
     }
@@ -83,12 +86,21 @@ const Divider = ({
   useEffect(() => {
     const onMouseMove = (e: MouseEvent) => {
       if (dragging) {
-        setSize((size) =>
-          Math.max(
+        setSize((size) => {
+          const newSize = Math.max(
             size + (second ? 1 : -1) * (vertical ? e.movementX : e.movementY),
             0
-          )
-        );
+          );
+
+          setOpen((open) => {
+            if (open && newSize <= 10) {
+              setDragging(false);
+            }
+            return open;
+          });
+
+          return newSize;
+        });
       }
     };
 
@@ -131,6 +143,7 @@ const Divider = ({
   const secondChildrenWrapper =
     size > 0 ? (
       <div
+        draggable={false}
         style={{
           position: 'relative',
           width: vertical ? size : undefined,
@@ -144,6 +157,7 @@ const Divider = ({
   return (
     <div
       ref={(ref) => setContainer(ref)}
+      draggable={false}
       style={{
         display: 'flex',
         flexDirection: vertical ? 'row' : 'column',
@@ -156,6 +170,7 @@ const Divider = ({
 
       <div
         className='divisor'
+        draggable={false}
         style={{
           width: vertical ? DIVIDER_WIDTH : '100%',
           height: horizontal ? DIVIDER_WIDTH : '100%',
@@ -169,7 +184,6 @@ const Divider = ({
           justifyContent: 'center'
         }}
         onMouseDown={!hideDivider ? onMouseDown : undefined}
-        draggable={false}
       >
         {!hideDivider ? (
           <ThreeDotsVertical horizontal={horizontal} color={color} />
