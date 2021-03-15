@@ -107,7 +107,7 @@ const App = () => {
             Component={Component}
             direction={Direction9.CENTER}
             state={state}
-            onStateChanged={(state: State | undefined) => console.log(state)}
+            onStateChanged={(state: State | undefined) => setState(state)}
           >
             <div
               style={{

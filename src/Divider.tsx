@@ -74,8 +74,11 @@ const Divider = ({
       setOpen(true);
     } else if (size <= 10) {
       onRatioChanged && onRatioChanged(0);
-      setOpen(false);
-      onClose && onClose();
+      if (open) {
+        console.log('closing', size);
+        setOpen(false);
+        onClose && onClose();
+      }
     }
   }, [size]);
 

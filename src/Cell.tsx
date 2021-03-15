@@ -28,6 +28,18 @@ const Cell = ({
   const [right, setRight] = useState<React.ReactElement>(<div />);
   const [bottom, setBottom] = useState<React.ReactElement>(<div />);
   const [left, setLeft] = useState<React.ReactElement>(<div />);
+  const [onTopCloseListener, setTopOnCloseListener] = useState<
+    (state: State) => void
+  >();
+  const [onRightCloseListener, setRightOnCloseListener] = useState<
+    (state: State) => void
+  >();
+  const [onLeftCloseListener, setLeftOnCloseListener] = useState<
+    (state: State) => void
+  >();
+  const [onBottomCloseListener, setBottomOnCloseListener] = useState<
+    (state: State) => void
+  >();
 
   useEffect(() => {
     if (state?.left) {
@@ -86,6 +98,9 @@ const Cell = ({
                 left: { ...s, props }
               });
           }}
+          onCloseListener={(listener: (state: State) => void) =>
+            setLeftOnCloseListener(() => listener)
+          }
         />
       </Cell>
     );
@@ -106,6 +121,9 @@ const Cell = ({
               top: { ...state?.top, props }
             });
         }}
+        onCloseListener={(listener: (state: State) => void) =>
+          setTopOnCloseListener(() => listener)
+        }
       />
     );
     setTop(
@@ -147,6 +165,9 @@ const Cell = ({
               bottom: { ...state?.bottom, props }
             });
         }}
+        onCloseListener={(listener: (state: State) => void) =>
+          setBottomOnCloseListener(() => listener)
+        }
       />
     );
     setBottom(
@@ -204,6 +225,9 @@ const Cell = ({
                 right: { ...state?.right, props }
               });
           }}
+          onCloseListener={(listener: (state: State) => void) =>
+            setRightOnCloseListener(() => listener)
+          }
         />
       </Cell>
     );
@@ -221,6 +245,9 @@ const Cell = ({
               top: { ...state?.top, props }
             });
         }}
+        onCloseListener={(listener: (state: State) => void) =>
+          setTopOnCloseListener(() => listener)
+        }
       />
     );
     setTop(
@@ -259,6 +286,9 @@ const Cell = ({
               bottom: { ...state?.bottom, props }
             });
         }}
+        onCloseListener={(listener: (state: State) => void) =>
+          setBottomOnCloseListener(() => listener)
+        }
       />
     );
     setBottom(
@@ -325,12 +355,14 @@ const Cell = ({
           hideDividers={hideDivider}
           right={right}
           rightOnOpen={openRight}
+          rightOnClose={onRightCloseListener}
           rightRatio={state?.right?.ratio}
           rightOnRatioChanged={rightOnRatioChanged}
           left={left}
           leftRatio={state?.left?.ratio}
           leftOnRatioChanged={leftOnRatioChanged}
           leftOnOpen={openLeft}
+          leftOnClose={onLeftCloseListener}
         >
           {children}
         </MultiDivider>
@@ -343,10 +375,12 @@ const Cell = ({
           hideDividers={hideDivider}
           top={top}
           topOnOpen={openTopLeft}
+          topOnClose={onTopCloseListener}
           topRatio={state?.top?.ratio}
           topOnRatioChanged={topOnRatioChanged}
           bottom={bottom}
           bottomOnOpen={openBottomLeft}
+          bottomOnClose={onBottomCloseListener}
           bottomRatio={state?.bottom?.ratio}
           bottomOnRatioChanged={bottomOnRatioChanged}
           left={left}
@@ -365,6 +399,7 @@ const Cell = ({
           hideDividers={hideDivider}
           top={top}
           topOnOpen={openTopLeft}
+          topOnClose={onTopCloseListener}
           topRatio={state?.top?.ratio}
           topOnRatioChanged={topOnRatioChanged}
         >
@@ -379,6 +414,7 @@ const Cell = ({
           hideDividers={hideDivider}
           bottom={bottom}
           bottomOnOpen={openBottomLeft}
+          bottomOnClose={onBottomCloseListener}
           bottomRatio={state?.bottom?.ratio}
           bottomOnRatioChanged={bottomOnRatioChanged}
         >
