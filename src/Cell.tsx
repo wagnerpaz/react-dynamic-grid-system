@@ -79,11 +79,12 @@ const Cell = ({
           onStateChanged &&
             onStateChanged({
               ...state,
-              left: {
-                ...state?.left,
-                ...s2,
-                props: state?.left?.ratio ? state.left.ratio : undefined
-              }
+              left: state?.left?.ratio
+                ? {
+                    ...state?.left,
+                    ...s2
+                  }
+                : undefined
             });
         }}
       >
@@ -138,11 +139,12 @@ const Cell = ({
           onStateChanged &&
             onStateChanged({
               ...state,
-              top: {
-                ...state?.top,
-                ...s2,
-                props: state?.top?.ratio ? state.top.ratio : undefined
-              }
+              top: state?.top?.ratio
+                ? {
+                    ...state?.top,
+                    ...s2
+                  }
+                : undefined
             });
         }}
       >
@@ -182,11 +184,12 @@ const Cell = ({
           onStateChanged &&
             onStateChanged({
               ...state,
-              bottom: {
-                ...state?.bottom,
-                ...s2,
-                props: state?.bottom?.ratio ? state.bottom.ratio : undefined
-              }
+              bottom: state?.bottom?.ratio
+                ? {
+                    ...state?.bottom,
+                    ...s2
+                  }
+                : undefined
             });
         }}
       >
@@ -207,11 +210,12 @@ const Cell = ({
           onStateChanged &&
             onStateChanged({
               ...state,
-              right: {
-                ...state?.right,
-                ...s2,
-                props: state?.right?.ratio ? state.right.ratio : undefined
-              }
+              right: state?.right?.ratio
+                ? {
+                    ...state?.right,
+                    ...s2
+                  }
+                : undefined
             });
         }}
       >
@@ -261,11 +265,12 @@ const Cell = ({
           onStateChanged &&
             onStateChanged({
               ...state,
-              top: {
-                ...state?.top,
-                ...s2,
-                props: state?.top?.ratio ? state.top.ratio : undefined
-              }
+              top: state?.top?.ratio
+                ? {
+                    ...state?.top,
+                    ...s2
+                  }
+                : undefined
             });
         }}
       >
@@ -302,11 +307,12 @@ const Cell = ({
           onStateChanged &&
             onStateChanged({
               ...state,
-              bottom: {
-                ...state?.bottom,
-                ...s2,
-                props: state?.top?.ratio ? state.top.ratio : undefined
-              }
+              bottom: state?.bottom?.ratio
+                ? {
+                    ...state?.bottom,
+                    ...s2
+                  }
+                : undefined
             });
         }}
       >
@@ -316,6 +322,11 @@ const Cell = ({
   };
 
   const topOnRatioChanged = (ratio: number) => {
+    if (ratio === 0) {
+      onStateChanged && onStateChanged({ ...state, top: undefined });
+      return;
+    }
+
     onStateChanged &&
       onStateChanged({
         ...state,
@@ -324,6 +335,11 @@ const Cell = ({
   };
 
   const rightOnRatioChanged = (ratio: number) => {
+    if (ratio === 0) {
+      onStateChanged && onStateChanged({ ...state, right: undefined });
+      return;
+    }
+
     onStateChanged &&
       onStateChanged({
         ...state,
@@ -332,6 +348,11 @@ const Cell = ({
   };
 
   const bottomOnRatioChanged = (ratio: number) => {
+    if (ratio === 0) {
+      onStateChanged && onStateChanged({ ...state, bottom: undefined });
+      return;
+    }
+
     onStateChanged &&
       onStateChanged({
         ...state,
@@ -340,6 +361,11 @@ const Cell = ({
   };
 
   const leftOnRatioChanged = (ratio: number) => {
+    if (ratio === 0) {
+      onStateChanged && onStateChanged({ ...state, left: undefined });
+      return;
+    }
+
     onStateChanged &&
       onStateChanged({
         ...state,

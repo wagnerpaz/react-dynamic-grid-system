@@ -28,13 +28,12 @@ const Divider = ({
   ratio = 0,
   children,
   onRatioChanged,
-  onOpen,
-  onClose
+  onOpen
 }: Props) => {
   const [container, setContainer] = useState<HTMLElement | null>(null);
 
   const [containerSize] = useSizeObserver(container);
-  const [size, setSize] = useState(0);
+  const [size, setSize] = useState<number | null>(null);
   const [dragging, setDragging] = useState(false);
   const [open, setOpen] = useState(ratio !== 0);
 
@@ -52,7 +51,7 @@ const Divider = ({
   const second = top || left;
 
   useEffect(() => {
-    if (containerSize.width === 0 && containerSize.height === 0) return;
+    if (containerSizeValue === 0 || size === null) return;
     const newRatio = containerSizeValue > 0 ? size / containerSizeValue : 0;
     if (newRatio !== ratio) {
       onRatioChanged && onRatioChanged(newRatio);
@@ -60,6 +59,8 @@ const Divider = ({
   }, [size]);
 
   useEffect(() => {
+    if (containerSizeValue === 0) return;
+
     const newSize = containerSizeValue * ratio;
     if (size !== newSize) {
       setSize(newSize);
@@ -67,18 +68,16 @@ const Divider = ({
   }, [containerSize, ratio]);
 
   useEffect(() => {
-    if (!open && size > 10) {
+    if (size === null) return;
+
+    if (open && size < 10) {
+      setOpen(false);
+      onRatioChanged && onRatioChanged(0);
+    } else if (!open && size > 10) {
       onOpen && onOpen();
       setOpen(true);
-    } else if (size <= 10) {
-      onRatioChanged && onRatioChanged(0);
-      if (open) {
-        console.log('closing', size);
-        setOpen(false);
-        onClose && onClose();
-      }
     }
-  }, [size]);
+  }, [size, ratio, containerSizeValue]);
 
   const onMouseDown = () => {
     setDragging(true);
@@ -89,7 +88,8 @@ const Divider = ({
       if (dragging) {
         setSize((size) => {
           const newSize = Math.max(
-            size + (second ? 1 : -1) * (vertical ? e.movementX : e.movementY),
+            (size || 0) +
+              (second ? 1 : -1) * (vertical ? e.movementX : e.movementY),
             0
           );
 
@@ -126,10 +126,14 @@ const Divider = ({
         flexDirection: vertical ? 'row' : 'column',
         width: horizontal
           ? '100%'
-          : containerSize.width - size - (!hideDivider ? DIVIDER_WIDTH : 0),
+          : containerSize.width -
+            (size || 0) -
+            (!hideDivider ? DIVIDER_WIDTH : 0),
         height: vertical
           ? '100%'
-          : containerSize.height - size - (!hideDivider ? DIVIDER_WIDTH : 0),
+          : containerSize.height -
+            (size || 0) -
+            (!hideDivider ? DIVIDER_WIDTH : 0),
         overflow: 'hidden'
       }}
     >
@@ -137,19 +141,18 @@ const Divider = ({
     </div>
   );
 
-  const secondChildrenWrapper =
-    size > 0 ? (
-      <div
-        draggable={false}
-        style={{
-          position: 'relative',
-          width: vertical ? size : undefined,
-          height: horizontal ? size : undefined
-        }}
-      >
-        {secondChildren}
-      </div>
-    ) : null;
+  const secondChildrenWrapper = open ? (
+    <div
+      draggable={false}
+      style={{
+        position: 'relative',
+        width: vertical && size ? size : undefined,
+        height: horizontal && size ? size : undefined
+      }}
+    >
+      {secondChildren}
+    </div>
+  ) : null;
 
   return (
     <div

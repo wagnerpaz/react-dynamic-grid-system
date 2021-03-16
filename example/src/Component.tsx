@@ -32,7 +32,7 @@ const Component = ({ count = 0, onPropsChanged, onCloseListener }: Props) => {
           backgroundColor: 'blue'
         }}
       >
-        {count}
+        {countS}
       </div>
       <button
         onClick={() => {
