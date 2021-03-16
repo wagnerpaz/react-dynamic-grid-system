@@ -155,19 +155,21 @@ const Divider = ({
     <div
       ref={(ref) => setContainer(ref)}
       draggable={false}
+      onDragStart={() => false}
+      onDrop={() => false}
       style={{
         display: 'flex',
         flexDirection: vertical ? 'row' : 'column',
         flex: 1,
         width: '100%',
-        height: '100%'
+        height: '100%',
+        userSelect: 'none'
       }}
     >
       {!second ? firstChildrenWrapper : secondChildrenWrapper}
 
       <div
         className='divisor'
-        draggable={false}
         style={{
           width: vertical ? DIVIDER_WIDTH : '100%',
           height: horizontal ? DIVIDER_WIDTH : '100%',
