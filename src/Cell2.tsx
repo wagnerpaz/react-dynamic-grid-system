@@ -25,7 +25,6 @@ const Cell2 = ({
 }: Props) => {
   const [render, setRender] = useState<React.ReactElement | null>(null);
   useEffect(() => {
-    console.log('render');
     const renderState = (
       direction: Direction9,
       id?: string
