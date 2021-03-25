@@ -9,21 +9,25 @@ type Props = {
   hideDividers?: boolean;
   top?: React.ReactElement | boolean;
   topRatio?: number;
+  topOnOpenState?: State;
   topOnRatioChanged?: (ratio: number) => void;
   topOnOpen?: (state?: State) => void;
   topOnClose?: (state?: State) => void;
   right?: React.ReactElement | boolean;
   rightRatio?: number;
+  rightOnOpenState?: State;
   rightOnRatioChanged?: (ratio: number) => void;
   rightOnOpen?: (state?: State) => void;
   rightOnClose?: (state?: State) => void;
   bottom?: React.ReactElement | boolean;
   bottomRatio?: number;
+  bottomOnOpenState?: State;
   bottomOnRatioChanged?: (ratio: number) => void;
   bottomOnOpen?: (state?: State) => void;
   bottomOnClose?: (state?: State) => void;
   left?: React.ReactElement | boolean;
   leftRatio?: number;
+  leftOnOpenState?: State;
   leftOnRatioChanged?: (ratio: number) => void;
   leftOnOpen?: (state?: State) => void;
   leftOnClose?: (state?: State) => void;
@@ -35,21 +39,25 @@ const MultiDivider = ({
   hideDividers,
   top,
   topRatio,
+  topOnOpenState,
   topOnRatioChanged,
   topOnOpen,
   topOnClose,
   right,
   rightRatio,
+  rightOnOpenState,
   rightOnRatioChanged,
   rightOnOpen,
   rightOnClose,
   bottom,
   bottomRatio,
+  bottomOnOpenState,
   bottomOnRatioChanged,
   bottomOnOpen,
   bottomOnClose,
   left,
   leftRatio,
+  leftOnOpenState,
   leftOnRatioChanged,
   leftOnOpen,
   leftOnClose,
@@ -69,6 +77,7 @@ const MultiDivider = ({
         ratio={bottomRatio}
         onRatioChanged={bottomOnRatioChanged}
         onOpen={bottomOnOpen}
+        onOpenState={bottomOnOpenState}
         onClose={bottomOnClose}
       >
         {children}
@@ -86,6 +95,7 @@ const MultiDivider = ({
         ratio={topRatio}
         onRatioChanged={topOnRatioChanged}
         onOpen={topOnOpen}
+        onOpenState={topOnOpenState}
         onClose={topOnClose}
       >
         {children}
@@ -104,6 +114,7 @@ const MultiDivider = ({
         ratio={leftRatio}
         onRatioChanged={leftOnRatioChanged}
         onOpen={leftOnOpen}
+        onOpenState={leftOnOpenState}
         onClose={leftOnClose}
       >
         {children}
@@ -121,6 +132,7 @@ const MultiDivider = ({
         ratio={rightRatio}
         onRatioChanged={rightOnRatioChanged}
         onOpen={rightOnOpen}
+        onOpenState={rightOnOpenState}
         onClose={rightOnClose}
       >
         {children}

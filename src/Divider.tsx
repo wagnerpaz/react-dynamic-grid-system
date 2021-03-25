@@ -13,6 +13,7 @@ type Props = {
   children: React.ReactElement;
   secondChildren: React.ReactElement | boolean;
   ratio?: number;
+  onOpenState?: State;
   onRatioChanged?: (ratio: number) => void;
   onOpen?: (state?: State) => void;
   onClose?: (state?: State) => void;
@@ -28,14 +29,15 @@ const Divider = ({
   ratio = 0,
   children,
   onRatioChanged,
-  onOpen
+  onOpen,
+  onOpenState
 }: Props) => {
   const [container, setContainer] = useState<HTMLElement | null>(null);
 
   const [containerSize] = useSizeObserver(container);
-  const [size, setSize] = useState<number | null>(null);
+  const [size, setSize] = useState<number>(0);
   const [dragging, setDragging] = useState(false);
-  const [open, setOpen] = useState(ratio !== 0);
+  const [open, setOpen] = useState(false);
 
   const top = direction === Direction4.TOP;
   const right = direction === Direction4.RIGHT;
@@ -50,34 +52,37 @@ const Divider = ({
 
   const second = top || left;
 
+  const [, setOldContainerSize] = useState(0);
   useEffect(() => {
-    if (containerSizeValue === 0 || size === null) return;
-    const newRatio = containerSizeValue > 0 ? size / containerSizeValue : 0;
+    if (containerSizeValue === 0) return;
+    setOldContainerSize((oldContainerSize) => {
+      if (oldContainerSize !== containerSizeValue) {
+        setSize(containerSizeValue * ratio);
+      }
+      return containerSizeValue;
+    });
+  }, [containerSizeValue, ratio]);
+
+  useEffect(() => {
+    if (size === 0) return;
+
+    if (size < 10) {
+      onRatioChanged && onRatioChanged(0);
+    } else if (size > 10) {
+      if (!open) {
+        onOpen && onOpen(onOpenState);
+        setOpen(true);
+      }
+    }
+  }, [size, open]);
+
+  useEffect(() => {
+    if (containerSizeValue === 0 || size === 0) return;
+    const newRatio = size / containerSizeValue;
     if (newRatio !== ratio) {
       onRatioChanged && onRatioChanged(newRatio);
     }
   }, [size]);
-
-  useEffect(() => {
-    if (containerSizeValue === 0) return;
-
-    const newSize = containerSizeValue * ratio;
-    if (size !== newSize) {
-      setSize(newSize);
-    }
-  }, [containerSize, ratio]);
-
-  useEffect(() => {
-    if (size === null) return;
-
-    if (open && size < 10) {
-      setOpen(false);
-      onRatioChanged && onRatioChanged(0);
-    } else if (!open && size > 10) {
-      onOpen && onOpen();
-      setOpen(true);
-    }
-  }, [size, ratio, containerSizeValue]);
 
   const onMouseDown = () => {
     setDragging(true);
@@ -93,12 +98,12 @@ const Divider = ({
             0
           );
 
-          setOpen((open) => {
-            if (open && newSize <= 10) {
-              setDragging(false);
-            }
-            return open;
-          });
+          // setOpen((open) => {
+          //   if (open && newSize <= 10) {
+          //     setDragging(false);
+          //   }
+          //   return open;
+          // });
 
           return newSize;
         });
@@ -141,18 +146,19 @@ const Divider = ({
     </div>
   );
 
-  const secondChildrenWrapper = open ? (
-    <div
-      draggable={false}
-      style={{
-        position: 'relative',
-        width: vertical && size ? size : undefined,
-        height: horizontal && size ? size : undefined
-      }}
-    >
-      {secondChildren}
-    </div>
-  ) : null;
+  const secondChildrenWrapper =
+    size !== null && size > 10 ? (
+      <div
+        draggable={false}
+        style={{
+          position: 'relative',
+          width: vertical && size ? size : undefined,
+          height: horizontal && size ? size : undefined
+        }}
+      >
+        {secondChildren}
+      </div>
+    ) : null;
 
   return (
     <div
