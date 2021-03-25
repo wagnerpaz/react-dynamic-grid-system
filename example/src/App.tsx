@@ -3,12 +3,7 @@ import 'react-dynamic-grid-system/dist/index.css';
 import sample from './sample.json';
 import Component from './Component';
 
-import {
-  DynamicGridSystem,
-  Cell,
-  Direction9,
-  State
-} from 'react-dynamic-grid-system';
+import { DynamicGridSystem, Cell2, State } from 'react-dynamic-grid-system';
 
 // type ItemProps = {
 //   children?: React.ReactElement;
@@ -81,7 +76,7 @@ import {
 // };
 
 const App = () => {
-  const [state, setState] = useState<State | undefined>(sample as State);
+  const [state, setState] = useState<State>(sample as State);
   console.log('state', state);
   return (
     <>
@@ -101,13 +96,14 @@ const App = () => {
         style={{ position: 'absolute', top: 40, bottom: 0, left: 0, right: 0 }}
       >
         <DynamicGridSystem backgroundColor='#FFF'>
-          <Cell
+          <Cell2
             color='#000'
             hideDivider={false}
             Component={Component}
-            direction={Direction9.CENTER}
             state={state}
-            onStateChanged={(state: State | undefined) => setState(state)}
+            onStateChanged={(state) => {
+              setState(state);
+            }}
           >
             <div
               style={{
@@ -119,7 +115,7 @@ const App = () => {
             >
               <div>CANVAS</div>
             </div>
-          </Cell>
+          </Cell2>
         </DynamicGridSystem>
       </div>
     </>

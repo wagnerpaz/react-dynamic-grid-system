@@ -12,7 +12,7 @@ const ThreeDotsVertical = ({
   color = '#000'
 }: Props) => {
   return (
-    <div draggable={false}>
+    <div draggable={false} style={{ width: 16, height: 16, margin: '5px 5px' }}>
       <svg
         xmlns='http://www.w3.org/2000/svg'
         width={size}

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
 type Props = {
+  id: string;
   count: number;
   onPropsChanged: (props: any) => void;
   onCloseListener: (listener: () => void) => void;
 };
 
-const Component = ({ count = 0, onPropsChanged, onCloseListener }: Props) => {
+const Component = ({ id, count = 0, onPropsChanged }: Props) => {
   const [countS, setCountS] = useState(count);
 
   useEffect(() => {
@@ -15,23 +16,27 @@ const Component = ({ count = 0, onPropsChanged, onCloseListener }: Props) => {
     };
   }, []);
 
-  useEffect(() => {
-    onCloseListener(() => {
-      console.log('closed', count);
-    });
-  }, [onCloseListener, count]);
-
   return (
-    <>
+    <div
+      style={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: 'blue'
+      }}
+    >
       <div
         style={{
           flex: 1,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: 'blue'
+          backgroundColor: 'blue',
+          textAlign: 'center'
         }}
       >
+        {id}
+        <br />
         {countS}
       </div>
       <button
@@ -42,7 +47,7 @@ const Component = ({ count = 0, onPropsChanged, onCloseListener }: Props) => {
       >
         +1
       </button>
-    </>
+    </div>
   );
 };
 

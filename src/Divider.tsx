@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Direction4 } from './Direction4';
 // eslint-disable-next-line no-unused-vars
 import { State } from './State';
@@ -37,7 +37,7 @@ const Divider = ({
   const [containerSize] = useSizeObserver(container);
   const [size, setSize] = useState<number>(0);
   const [dragging, setDragging] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(ratio !== 0);
 
   const top = direction === Direction4.TOP;
   const right = direction === Direction4.RIGHT;
@@ -53,12 +53,16 @@ const Divider = ({
   const second = top || left;
 
   const [, setOldContainerSize] = useState(0);
+  const [, setOldRatio] = useState(0);
   useEffect(() => {
     if (containerSizeValue === 0) return;
     setOldContainerSize((oldContainerSize) => {
-      if (oldContainerSize !== containerSizeValue) {
-        setSize(containerSizeValue * ratio);
-      }
+      setOldRatio((oldRatio) => {
+        if (oldContainerSize !== containerSizeValue || ratio !== oldRatio) {
+          setSize(containerSizeValue * ratio);
+        }
+        return ratio;
+      });
       return containerSizeValue;
     });
   }, [containerSizeValue, ratio]);
@@ -187,6 +191,7 @@ const Divider = ({
               ? 'col-resize'
               : 'row-resize'
             : undefined,
+          flexDirection: vertical ? 'column' : 'row',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center'
@@ -194,7 +199,9 @@ const Divider = ({
         onMouseDown={!hideDivider ? onMouseDown : undefined}
       >
         {!hideDivider ? (
-          <ThreeDotsVertical horizontal={horizontal} color={color} />
+          <Fragment>
+            <ThreeDotsVertical horizontal={horizontal} color={color} />
+          </Fragment>
         ) : null}
       </div>
       {second ? firstChildrenWrapper : secondChildrenWrapper}
