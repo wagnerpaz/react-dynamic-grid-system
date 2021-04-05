@@ -7,6 +7,7 @@ import useSizeObserver from './hooks/useSizeObserver';
 import ThreeDotsVertical from './res/ThreeDotsVertical';
 
 type Props = {
+  id: string;
   color?: string;
   hideDivider?: boolean;
   direction: Direction4;
@@ -15,13 +16,14 @@ type Props = {
   ratio?: number;
   onOpenState?: State;
   onRatioChanged?: (ratio: number) => void;
-  onOpen?: (state?: State) => void;
-  onClose?: (state?: State) => void;
+  onOpen?: (id: string, state?: State) => void;
+  onClose?: (id: string, state?: State) => void;
 };
 
 const DIVIDER_WIDTH = 10;
 
 const Divider = ({
+  id,
   color,
   hideDivider = false,
   direction,
@@ -30,7 +32,7 @@ const Divider = ({
   children,
   onRatioChanged,
   onOpen,
-  onOpenState
+  onClose
 }: Props) => {
   const [container, setContainer] = useState<HTMLElement | null>(null);
 
@@ -71,10 +73,14 @@ const Divider = ({
     if (size === 0) return;
 
     if (size < 10) {
-      onRatioChanged && onRatioChanged(0);
+      if (open) {
+        onRatioChanged && onRatioChanged(0);
+        onClose && onClose(id);
+        setOpen(false);
+      }
     } else if (size > 10) {
       if (!open) {
-        onOpen && onOpen(onOpenState);
+        onOpen && onOpen(id);
         setOpen(true);
       }
     }
@@ -83,7 +89,7 @@ const Divider = ({
   useEffect(() => {
     if (containerSizeValue === 0 || size === 0) return;
     const newRatio = size / containerSizeValue;
-    if (newRatio !== ratio) {
+    if (open && newRatio !== ratio) {
       onRatioChanged && onRatioChanged(newRatio);
     }
   }, [size]);

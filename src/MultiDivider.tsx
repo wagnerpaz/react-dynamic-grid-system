@@ -8,29 +8,33 @@ type Props = {
   color?: string;
   hideDividers?: boolean;
   top?: React.ReactElement | boolean;
+  topId?: string;
   topRatio?: number;
   topOnOpenState?: State;
   topOnRatioChanged?: (ratio: number) => void;
-  topOnOpen?: (state?: State) => void;
-  topOnClose?: (state?: State) => void;
+  topOnOpen?: (id: string, state?: State) => void;
+  topOnClose?: (id: string, state?: State) => void;
   right?: React.ReactElement | boolean;
+  rightId?: string;
   rightRatio?: number;
   rightOnOpenState?: State;
   rightOnRatioChanged?: (ratio: number) => void;
-  rightOnOpen?: (state?: State) => void;
-  rightOnClose?: (state?: State) => void;
+  rightOnOpen?: (id: string, state?: State) => void;
+  rightOnClose?: (id: string, state?: State) => void;
   bottom?: React.ReactElement | boolean;
+  bottomId?: string;
   bottomRatio?: number;
   bottomOnOpenState?: State;
   bottomOnRatioChanged?: (ratio: number) => void;
-  bottomOnOpen?: (state?: State) => void;
-  bottomOnClose?: (state?: State) => void;
+  bottomOnOpen?: (id: string, state?: State) => void;
+  bottomOnClose?: (id: string, state?: State) => void;
   left?: React.ReactElement | boolean;
+  leftId?: string;
   leftRatio?: number;
   leftOnOpenState?: State;
   leftOnRatioChanged?: (ratio: number) => void;
-  leftOnOpen?: (state?: State) => void;
-  leftOnClose?: (state?: State) => void;
+  leftOnOpen?: (id: string, state?: State) => void;
+  leftOnClose?: (id: string, state?: State) => void;
   children: React.ReactElement;
 };
 
@@ -38,24 +42,28 @@ const MultiDivider = ({
   color,
   hideDividers,
   top,
+  topId,
   topRatio,
   topOnOpenState,
   topOnRatioChanged,
   topOnOpen,
   topOnClose,
   right,
+  rightId,
   rightRatio,
   rightOnOpenState,
   rightOnRatioChanged,
   rightOnOpen,
   rightOnClose,
   bottom,
+  bottomId,
   bottomRatio,
   bottomOnOpenState,
   bottomOnRatioChanged,
   bottomOnOpen,
   bottomOnClose,
   left,
+  leftId,
   leftRatio,
   leftOnOpenState,
   leftOnRatioChanged,
@@ -65,11 +73,12 @@ const MultiDivider = ({
 }: Props) => {
   let child: React.ReactElement = children;
 
-  if (bottom) {
+  if (bottom && bottomId) {
     const bottomWrapper = (
       children: React.ReactElement
     ): React.ReactElement => (
       <Divider
+        id={bottomId}
         color={color}
         hideDivider={hideDividers}
         direction={Direction4.BOTTOM}
@@ -85,9 +94,10 @@ const MultiDivider = ({
     );
     child = bottomWrapper(child);
   }
-  if (top) {
+  if (top && topId) {
     const topWrapper = (children: React.ReactElement): React.ReactElement => (
       <Divider
+        id={topId}
         color={color}
         hideDivider={hideDividers}
         direction={Direction4.TOP}
@@ -104,9 +114,10 @@ const MultiDivider = ({
     child = topWrapper(child);
   }
 
-  if (left) {
+  if (left && leftId) {
     const leftWrapper = (children: React.ReactElement): React.ReactElement => (
       <Divider
+        id={leftId}
         color={color}
         hideDivider={hideDividers}
         direction={Direction4.LEFT}
@@ -122,9 +133,10 @@ const MultiDivider = ({
     );
     child = leftWrapper(child);
   }
-  if (right) {
+  if (right && rightId) {
     const rightWrapper = (children: React.ReactElement): React.ReactElement => (
       <Divider
+        id={rightId}
         color={color}
         hideDivider={hideDividers}
         direction={Direction4.RIGHT}
