@@ -10,7 +10,7 @@ type Props = {
   color?: string;
   hideDivider?: boolean;
   state: State;
-  onStateChanged?: (state: State) => void;
+  onStateChanged?: (state: State, id: string, localState: State) => void;
   Component: React.FunctionComponent<any>;
   children: React.ReactElement;
   onOpen?: (id: string, state: State) => void;
@@ -48,24 +48,28 @@ const Cell2 = ({
     const cellState = newId ? get(state, newId) : state;
 
     const onRatioChanged = (direction: Direction9) => (ratio: number) => {
+      const id = `${newId ? newId + '.' : ''}${direction}`;
+
       let newState;
       if (ratio > 0) {
         newState = {
-          ...set(state, `${newId ? newId + '.' : ''}${direction}.ratio`, ratio)
+          ...set(state, `${id}.ratio`, ratio)
         };
       } else {
         newState = {
-          ...set(state, `${newId ? newId + '.' : ''}${direction}`, undefined)
+          ...set(state, `${id}`, undefined)
         };
       }
-      onStateChanged && onStateChanged(newState);
+      onStateChanged &&
+        onStateChanged(newState, id, get(newState, id) as State);
     };
 
     const onPropsChanged = (props: any) => {
       const newState = {
         ...set(state, `${newId ? newId + '.' : ''}props`, props)
       };
-      onStateChanged && onStateChanged(newState);
+      onStateChanged &&
+        onStateChanged(newState, newId, get(newState, newId) as State);
     };
 
     if (direction === Direction9.CENTER) {

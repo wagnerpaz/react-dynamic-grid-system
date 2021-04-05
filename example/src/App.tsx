@@ -7,7 +7,6 @@ import { DynamicGridSystem, Cell2, State } from 'react-dynamic-grid-system';
 
 const App = () => {
   const [state, setState] = useState<State>(sample as State);
-  console.log('state', state);
   return (
     <>
       <div>
@@ -31,8 +30,9 @@ const App = () => {
             hideDivider={false}
             Component={Component}
             state={state}
-            onStateChanged={(state) => {
+            onStateChanged={(state, id, localState) => {
               setState(state);
+              console.log('state', state, 'id', id, 'localState', localState);
             }}
             onOpen={(id) => {
               console.log('onOpen', id);
