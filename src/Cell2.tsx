@@ -12,7 +12,7 @@ type Props = {
   state: State;
   onStateChanged?: (state: State, id: string, localState: State) => void;
   Component: React.FunctionComponent<any>;
-  children: React.ReactElement;
+  children?: React.ReactElement;
   onOpen?: (id: string, state: State) => void;
   onClose?: (id: string, state: State) => void;
 };
@@ -77,12 +77,25 @@ const Cell2 = ({
         <MultiDivider
           color={color}
           hideDividers={hideDivider}
+          top={cellState.top ? renderState(Direction9.TOP, newId) : true}
+          topId={`${newId ? newId + '.' : ''}${Direction9.TOP}`}
+          topRatio={cellState.top?.ratio}
+          topOnRatioChanged={onRatioChanged(Direction9.TOP)}
+          topOnOpen={onOpen}
           right={cellState.right ? renderState(Direction9.RIGHT, newId) : true}
           rightId={`${newId ? newId + '.' : ''}${Direction9.RIGHT}`}
           rightRatio={cellState?.right?.ratio}
           rightOnRatioChanged={onRatioChanged(Direction9.RIGHT)}
           rightOnOpen={onOpen}
           rightOnClose={onClose}
+          bottom={
+            cellState.bottom ? renderState(Direction9.BOTTOM, newId) : true
+          }
+          bottomId={`${newId ? newId + '.' : ''}${Direction9.BOTTOM}`}
+          bottomRatio={cellState.bottom?.ratio}
+          bottomOnRatioChanged={onRatioChanged(Direction9.BOTTOM)}
+          bottomOnOpen={onOpen}
+          bottomOnClose={onClose}
           left={cellState.left ? renderState(Direction9.LEFT, newId) : true}
           leftId={`${newId ? newId + '.' : ''}${Direction9.LEFT}`}
           leftRatio={cellState?.left?.ratio}
@@ -90,7 +103,59 @@ const Cell2 = ({
           leftOnOpen={onOpen}
           leftOnClose={onClose}
         >
-          {children}
+          {children ? (
+            children
+          ) : (
+            <Component
+              {...cellState.props}
+              id={newId}
+              onPropsChanged={onPropsChanged}
+            />
+          )}
+        </MultiDivider>
+      );
+    }
+
+    if (direction === Direction9.TOP) {
+      return (
+        <MultiDivider
+          color={color}
+          hideDividers={hideDivider}
+          top={cellState.top ? renderState(Direction9.TOP, newId) : true}
+          topId={`${newId ? newId + '.' : ''}${Direction9.TOP}`}
+          topRatio={cellState?.top?.ratio}
+          topOnRatioChanged={onRatioChanged(Direction9.TOP)}
+          topOnOpen={onOpen}
+          topOnClose={onClose}
+        >
+          <Component
+            {...cellState.props}
+            id={newId}
+            onPropsChanged={onPropsChanged}
+          />
+        </MultiDivider>
+      );
+    }
+
+    if (direction === Direction9.BOTTOM) {
+      return (
+        <MultiDivider
+          color={color}
+          hideDividers={hideDivider}
+          bottom={
+            cellState.bottom ? renderState(Direction9.BOTTOM, newId) : true
+          }
+          bottomId={`${newId ? newId + '.' : ''}${Direction9.BOTTOM}`}
+          bottomRatio={cellState?.bottom?.ratio}
+          bottomOnRatioChanged={onRatioChanged(Direction9.BOTTOM)}
+          bottomOnOpen={onOpen}
+          bottomOnClose={onClose}
+        >
+          <Component
+            {...cellState.props}
+            id={newId}
+            onPropsChanged={onPropsChanged}
+          />
         </MultiDivider>
       );
     }
