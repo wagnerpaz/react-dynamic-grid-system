@@ -11,6 +11,7 @@ type Props = {
   color?: string;
   hideDivider?: boolean;
   dividerWidth?: number;
+  closeWidth?: number;
   direction: Direction4;
   children: React.ReactElement;
   secondChildren: React.ReactElement | boolean;
@@ -26,6 +27,7 @@ const Divider = ({
   color,
   hideDivider = false,
   dividerWidth = 6,
+  closeWidth = 15,
   direction,
   secondChildren,
   ratio = 0,
@@ -62,7 +64,7 @@ const Divider = ({
   useEffect(() => {
     if (size === 0) return;
 
-    if (size < dividerWidth) {
+    if (size < closeWidth) {
       if (open) {
         onRatioChanged && onRatioChanged(0);
         onClose && onClose(id);
