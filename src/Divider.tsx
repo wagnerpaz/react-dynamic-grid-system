@@ -84,7 +84,7 @@ const Divider = ({
         setOpen(true);
       }
     }
-  }, [size, open]);
+  }, [size, open, onRatioChanged]);
 
   useEffect(() => {
     if (containerSizeValue === 0 || size === 0) return;
@@ -92,7 +92,7 @@ const Divider = ({
     if (open && newRatio !== ratio) {
       onRatioChanged && onRatioChanged(newRatio);
     }
-  }, [size]);
+  }, [size, onRatioChanged]);
 
   const onMouseDown = () => {
     setDragging(true);
