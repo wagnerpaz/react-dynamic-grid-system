@@ -54,21 +54,11 @@ const Divider = ({
 
   const second = top || left;
 
-  const [, setOldContainerSize] = useState(0);
-  const [, setOldRatio] = useState(0);
   useEffect(() => {
-    if (containerSizeValue === 0) return;
-    setOldContainerSize((oldContainerSize) => {
-      setOldRatio((oldRatio) => {
-        if (oldContainerSize !== containerSizeValue || ratio !== oldRatio) {
-          setSize(containerSizeValue * ratio);
-        }
-        return ratio;
-      });
-      return containerSizeValue;
-    });
+    setSize(containerSizeValue * ratio);
   }, [containerSizeValue, ratio]);
 
+  const [, setOldRatio] = useState(-1);
   useEffect(() => {
     if (size === 0) return;
 
@@ -88,9 +78,12 @@ const Divider = ({
 
     if (containerSizeValue === 0 || size === 0 || !open) return;
     const newRatio = size / containerSizeValue;
-    if (newRatio !== ratio) {
-      onRatioChanged && onRatioChanged(newRatio);
-    }
+    setOldRatio((oldRatio) => {
+      if (newRatio !== oldRatio) {
+        onRatioChanged && onRatioChanged(newRatio);
+      }
+      return ratio;
+    });
   }, [size, open, onRatioChanged, onOpen, onClose]);
 
   const onMouseDown = () => {
