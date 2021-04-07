@@ -10,6 +10,7 @@ type Props = {
   id: string;
   color?: string;
   hideDivider?: boolean;
+  dividerWidth?: number;
   direction: Direction4;
   children: React.ReactElement;
   secondChildren: React.ReactElement | boolean;
@@ -20,12 +21,11 @@ type Props = {
   onClose?: (id: string, state?: State) => void;
 };
 
-const DIVIDER_WIDTH = 10;
-
 const Divider = ({
   id,
   color,
   hideDivider = false,
+  dividerWidth = 6,
   direction,
   secondChildren,
   ratio = 0,
@@ -72,14 +72,14 @@ const Divider = ({
   useEffect(() => {
     if (size === 0) return;
 
-    if (size < 10) {
+    if (size < dividerWidth) {
       if (open) {
         onRatioChanged && onRatioChanged(0);
         onClose && onClose(id);
         setOpen(false);
         return;
       }
-    } else if (size > 10) {
+    } else if (size > dividerWidth) {
       if (!open) {
         onOpen && onOpen(id);
         setOpen(true);
@@ -142,12 +142,12 @@ const Divider = ({
           ? '100%'
           : containerSize.width -
             (size || 0) -
-            (!hideDivider ? DIVIDER_WIDTH : 0),
+            (!hideDivider ? dividerWidth : 0),
         height: vertical
           ? '100%'
           : containerSize.height -
             (size || 0) -
-            (!hideDivider ? DIVIDER_WIDTH : 0),
+            (!hideDivider ? dividerWidth : 0),
         overflow: 'hidden'
       }}
     >
@@ -156,7 +156,7 @@ const Divider = ({
   );
 
   const secondChildrenWrapper =
-    size !== null && size > 10 ? (
+    size !== null && size > dividerWidth ? (
       <div
         draggable={false}
         style={{
@@ -189,8 +189,8 @@ const Divider = ({
       <div
         className='divisor'
         style={{
-          width: vertical ? DIVIDER_WIDTH : '100%',
-          height: horizontal ? DIVIDER_WIDTH : '100%',
+          width: vertical ? dividerWidth : '100%',
+          height: horizontal ? dividerWidth : '100%',
           cursor: !hideDivider
             ? vertical
               ? 'col-resize'
