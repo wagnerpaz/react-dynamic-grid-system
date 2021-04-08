@@ -27,7 +27,7 @@ const Divider = ({
   color,
   hideDivider = false,
   dividerWidth = 6,
-  closeWidth = 15,
+  closeWidth = 6,
   direction,
   secondChildren,
   ratio = 0,
@@ -76,7 +76,6 @@ const Divider = ({
     } else if (size > dividerWidth) {
       if (!open) {
         onOpen && onOpen(id);
-        setSize(closeWidth);
         setOpen(true);
       }
     }
