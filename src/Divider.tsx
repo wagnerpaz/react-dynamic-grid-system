@@ -20,6 +20,7 @@ type Props = {
   onRatioChanged?: (ratio: number) => void;
   onOpen?: (id: string, state?: State) => void;
   onClose?: (id: string, state?: State) => void;
+  onInteracting?: (interacting: boolean) => void;
 };
 
 const Divider = ({
@@ -34,7 +35,8 @@ const Divider = ({
   children,
   onRatioChanged,
   onOpen,
-  onClose
+  onClose,
+  onInteracting
 }: Props) => {
   const [container, setContainer] = useState<HTMLElement | null>(null);
 
@@ -55,6 +57,10 @@ const Divider = ({
     : containerSize.height;
 
   const second = top || left;
+
+  useEffect(() => {
+    onInteracting && onInteracting(dragging);
+  }, [dragging]);
 
   useEffect(() => {
     if (containerSizeValue === 0) return;

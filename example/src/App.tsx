@@ -40,6 +40,9 @@ const App = () => {
             onClose={(id) => {
               console.log('onClose', id);
             }}
+            onInteracting={(interacting) => {
+              console.log('interacting', interacting);
+            }}
           >
             <div
               style={{

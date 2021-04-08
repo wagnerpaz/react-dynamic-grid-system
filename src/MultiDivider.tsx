@@ -35,6 +35,7 @@ type Props = {
   leftOnRatioChanged?: (ratio: number) => void;
   leftOnOpen?: (id: string, state?: State) => void;
   leftOnClose?: (id: string, state?: State) => void;
+  onInteracting?: (interacting: boolean) => void;
   children: React.ReactElement;
 };
 
@@ -69,6 +70,7 @@ const MultiDivider = ({
   leftOnRatioChanged,
   leftOnOpen,
   leftOnClose,
+  onInteracting,
   children
 }: Props) => {
   let child: React.ReactElement = children;
@@ -88,6 +90,7 @@ const MultiDivider = ({
         onOpen={bottomOnOpen}
         onOpenState={bottomOnOpenState}
         onClose={bottomOnClose}
+        onInteracting={onInteracting}
       >
         {children}
       </Divider>
@@ -107,6 +110,7 @@ const MultiDivider = ({
         onOpen={topOnOpen}
         onOpenState={topOnOpenState}
         onClose={topOnClose}
+        onInteracting={onInteracting}
       >
         {children}
       </Divider>
@@ -127,6 +131,7 @@ const MultiDivider = ({
         onOpen={leftOnOpen}
         onOpenState={leftOnOpenState}
         onClose={leftOnClose}
+        onInteracting={onInteracting}
       >
         {children}
       </Divider>
@@ -146,6 +151,7 @@ const MultiDivider = ({
         onOpen={rightOnOpen}
         onOpenState={rightOnOpenState}
         onClose={rightOnClose}
+        onInteracting={onInteracting}
       >
         {children}
       </Divider>

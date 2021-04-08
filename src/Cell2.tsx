@@ -15,6 +15,7 @@ type Props = {
   children?: React.ReactElement;
   onOpen?: (id: string, state: State) => void;
   onClose?: (id: string, state: State) => void;
+  onInteracting?: (interacting: boolean) => void;
 };
 
 const Cell2 = ({
@@ -25,7 +26,8 @@ const Cell2 = ({
   onStateChanged,
   children,
   onOpen,
-  onClose
+  onClose,
+  onInteracting
 }: Props) => {
   const renderState = (
     direction: Direction9,
@@ -103,6 +105,7 @@ const Cell2 = ({
           leftOnRatioChanged={onRatioChanged(Direction9.LEFT)}
           leftOnOpen={onOpen}
           leftOnClose={onClose}
+          onInteracting={onInteracting}
         >
           {children ? (
             children
@@ -128,6 +131,7 @@ const Cell2 = ({
           topOnRatioChanged={onRatioChanged(Direction9.TOP)}
           topOnOpen={onOpen}
           topOnClose={onClose}
+          onInteracting={onInteracting}
         >
           <Component
             {...cellState.props}
@@ -151,6 +155,7 @@ const Cell2 = ({
           bottomOnRatioChanged={onRatioChanged(Direction9.BOTTOM)}
           bottomOnOpen={onOpen}
           bottomOnClose={onClose}
+          onInteracting={onInteracting}
         >
           <Component
             {...cellState.props}
@@ -186,6 +191,7 @@ const Cell2 = ({
           bottomOnRatioChanged={onRatioChanged(Direction9.BOTTOM)}
           bottomOnOpen={onOpen}
           bottomOnClose={onClose}
+          onInteracting={onInteracting}
         >
           <Component
             {...cellState.props}
@@ -207,6 +213,7 @@ const Cell2 = ({
           topOnRatioChanged={onRatioChanged(Direction9.TOP)}
           topOnOpen={onOpen}
           topOnClose={onClose}
+          onInteracting={onInteracting}
         >
           <Component
             {...cellState.props}
@@ -230,6 +237,7 @@ const Cell2 = ({
           bottomOnRatioChanged={onRatioChanged(Direction9.BOTTOM)}
           bottomOnOpen={onOpen}
           bottomOnClose={onClose}
+          onInteracting={onInteracting}
         >
           <Component
             {...cellState.props}
@@ -267,6 +275,7 @@ const Cell2 = ({
           bottomOnRatioChanged={onRatioChanged(Direction9.BOTTOM)}
           bottomOnOpen={onOpen}
           bottomOnClose={onClose}
+          onInteracting={onInteracting}
         >
           <Component
             {...cellState.props}
@@ -288,6 +297,7 @@ const Cell2 = ({
           topOnRatioChanged={onRatioChanged(Direction9.TOP)}
           topOnOpen={onOpen}
           topOnClose={onClose}
+          onInteracting={onInteracting}
         >
           <Component
             {...cellState.props}
@@ -313,6 +323,7 @@ const Cell2 = ({
           bottomOnRatioChanged={onRatioChanged(Direction9.BOTTOM)}
           bottomOnOpen={onOpen}
           bottomOnClose={onClose}
+          onInteracting={onInteracting}
         >
           <Component
             {...cellState.props}
