@@ -76,6 +76,7 @@ const Divider = ({
     } else if (size > dividerWidth) {
       if (!open) {
         onOpen && onOpen(id);
+        setSize(closeWidth);
         setOpen(true);
       }
     }
