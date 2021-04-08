@@ -82,6 +82,7 @@ const Cell2 = ({
           topRatio={cellState.top?.ratio}
           topOnRatioChanged={onRatioChanged(Direction9.TOP)}
           topOnOpen={onOpen}
+          topOnClose={onClose}
           right={cellState.right ? renderState(Direction9.RIGHT, newId) : true}
           rightId={`${newId ? newId + '.' : ''}${Direction9.RIGHT}`}
           rightRatio={cellState?.right?.ratio}
