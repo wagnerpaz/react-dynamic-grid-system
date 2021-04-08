@@ -39,7 +39,7 @@ const Divider = ({
   const [container, setContainer] = useState<HTMLElement | null>(null);
 
   const [containerSize] = useSizeObserver(container);
-  const [size, setSize] = useState<number>(0);
+  const [size, setSize] = useState<number>(-99999);
   const [dragging, setDragging] = useState(false);
   const [open, setOpen] = useState(ratio !== 0);
 
@@ -57,12 +57,14 @@ const Divider = ({
   const second = top || left;
 
   useEffect(() => {
+    if (containerSizeValue === 0) return;
+
     setSize(containerSizeValue * ratio);
   }, [containerSizeValue, ratio]);
 
   const [, setOldRatio] = useState(-1);
   useEffect(() => {
-    if (size === 0) return;
+    if (size === -99999) return;
 
     if (size < closeWidth) {
       if (open) {

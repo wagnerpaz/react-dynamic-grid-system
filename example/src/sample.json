@@ -1,3 +1,8 @@
 {
-   
+   "left": {
+      "ratio": 0.25,
+      "props": {
+         "count": 5
+      }
+   }
 }
