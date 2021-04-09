@@ -123,7 +123,6 @@ const Divider = ({
     };
 
     const onMouseUp = () => {
-      console.log('mouseUp');
       setDragging(false);
     };
 
