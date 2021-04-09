@@ -20,7 +20,7 @@ type Props = {
   onRatioChanged?: (ratio: number) => void;
   onOpen?: (id: string, state?: State) => void;
   onClose?: (id: string, state?: State) => void;
-  onInteracting?: (interacting: boolean) => void;
+  onInteracting?: (id: string, interacting: boolean) => void;
 };
 
 const Divider = ({
@@ -59,7 +59,7 @@ const Divider = ({
   const second = top || left;
 
   useEffect(() => {
-    onInteracting && onInteracting(dragging);
+    onInteracting && onInteracting(id, dragging);
   }, [dragging]);
 
   useEffect(() => {
@@ -123,6 +123,7 @@ const Divider = ({
     };
 
     const onMouseUp = () => {
+      console.log('mouseUp');
       setDragging(false);
     };
 
