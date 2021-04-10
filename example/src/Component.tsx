@@ -11,6 +11,10 @@ const Component = ({ id, count = 0, onPropsChanged }: Props) => {
   const [countS, setCountS] = useState(count);
 
   useEffect(() => {
+    setCountS(count);
+  }, [count]);
+
+  useEffect(() => {
     return () => {
       console.log('destroied');
     };

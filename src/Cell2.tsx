@@ -1,5 +1,6 @@
 import get from 'lodash.get';
 import set from 'lodash.set';
+import cloneDeep from 'lodash.clonedeep';
 import React from 'react';
 import { Direction9 } from './Direction9';
 import MultiDivider from './MultiDivider';
@@ -74,40 +75,70 @@ const Cell2 = ({
         onStateChanged(newState, newId, get(newState, newId) as State);
     };
 
+    const onCloseSecond = (id: string, idSecond: string) => {
+      const idProps = cloneDeep(get(state, `${id}.props`));
+      console.log('idProps', idProps, idSecond);
+
+      const newState = cloneDeep(state);
+      console.log('newState', newState);
+
+      set(newState, `${idSecond}.props`, idProps);
+      set(newState, id, undefined);
+      onStateChanged &&
+        onStateChanged(newState, idSecond, get(newState, idSecond));
+    };
+
+    const topId = `${newId ? newId + '.' : ''}${Direction9.TOP}`;
+    const rightId = `${newId ? newId + '.' : ''}${Direction9.RIGHT}`;
+    const bottomId = `${newId ? newId + '.' : ''}${Direction9.BOTTOM}`;
+    const leftId = `${newId ? newId + '.' : ''}${Direction9.LEFT}`;
+
     if (direction === Direction9.CENTER) {
       return (
         <MultiDivider
           color={color}
           hideDividers={hideDivider}
           top={cellState.top ? renderState(Direction9.TOP, newId) : true}
-          topId={`${newId ? newId + '.' : ''}${Direction9.TOP}`}
+          topId={topId}
           topRatio={cellState.top?.ratio}
           topOnRatioChanged={onRatioChanged(Direction9.TOP)}
           topOnOpen={onOpen}
           topOnClose={onClose}
+          topOnCloseSecond={(id) => {
+            onCloseSecond(id, newId);
+          }}
           topOnInteracting={onInteracting}
           right={cellState.right ? renderState(Direction9.RIGHT, newId) : true}
-          rightId={`${newId ? newId + '.' : ''}${Direction9.RIGHT}`}
+          rightId={rightId}
           rightRatio={cellState?.right?.ratio}
           rightOnRatioChanged={onRatioChanged(Direction9.RIGHT)}
           rightOnOpen={onOpen}
           rightOnClose={onClose}
+          rightOnCloseSecond={(id) => {
+            onCloseSecond(id, newId);
+          }}
           rightOnInteracting={onInteracting}
           bottom={
             cellState.bottom ? renderState(Direction9.BOTTOM, newId) : true
           }
-          bottomId={`${newId ? newId + '.' : ''}${Direction9.BOTTOM}`}
+          bottomId={bottomId}
           bottomRatio={cellState.bottom?.ratio}
           bottomOnRatioChanged={onRatioChanged(Direction9.BOTTOM)}
           bottomOnOpen={onOpen}
           bottomOnClose={onClose}
+          bottomOnCloseSecond={(id) => {
+            onCloseSecond(id, newId);
+          }}
           bottomOnInteracting={onInteracting}
           left={cellState.left ? renderState(Direction9.LEFT, newId) : true}
-          leftId={`${newId ? newId + '.' : ''}${Direction9.LEFT}`}
+          leftId={leftId}
           leftRatio={cellState?.left?.ratio}
           leftOnRatioChanged={onRatioChanged(Direction9.LEFT)}
           leftOnOpen={onOpen}
           leftOnClose={onClose}
+          leftOnCloseSecond={(id) => {
+            onCloseSecond(id, newId);
+          }}
           leftOnInteracting={onInteracting}
         >
           {children ? (
@@ -129,11 +160,14 @@ const Cell2 = ({
           color={color}
           hideDividers={hideDivider}
           top={cellState.top ? renderState(Direction9.TOP, newId) : true}
-          topId={`${newId ? newId + '.' : ''}${Direction9.TOP}`}
+          topId={topId}
           topRatio={cellState?.top?.ratio}
           topOnRatioChanged={onRatioChanged(Direction9.TOP)}
           topOnOpen={onOpen}
           topOnClose={onClose}
+          topOnCloseSecond={(id) => {
+            onCloseSecond(id, newId);
+          }}
           topOnInteracting={onInteracting}
         >
           <Component
@@ -153,11 +187,14 @@ const Cell2 = ({
           bottom={
             cellState.bottom ? renderState(Direction9.BOTTOM, newId) : true
           }
-          bottomId={`${newId ? newId + '.' : ''}${Direction9.BOTTOM}`}
+          bottomId={bottomId}
           bottomRatio={cellState?.bottom?.ratio}
           bottomOnRatioChanged={onRatioChanged(Direction9.BOTTOM)}
           bottomOnOpen={onOpen}
           bottomOnClose={onClose}
+          bottomOnCloseSecond={(id) => {
+            onCloseSecond(id, newId);
+          }}
           bottomOnInteracting={onInteracting}
         >
           <Component
@@ -175,27 +212,36 @@ const Cell2 = ({
           color={color}
           hideDividers={hideDivider}
           top={cellState.top ? renderState(Direction9.TOP_LEFT, newId) : true}
-          topId={`${newId ? newId + '.' : ''}${Direction9.TOP}`}
+          topId={topId}
           topRatio={cellState.top?.ratio}
           topOnRatioChanged={onRatioChanged(Direction9.TOP)}
           topOnOpen={onOpen}
           topOnClose={onClose}
+          topOnCloseSecond={(id) => {
+            onCloseSecond(id, newId);
+          }}
           topOnInteracting={onInteracting}
           left={cellState.left ? renderState(Direction9.LEFT, newId) : true}
-          leftId={`${newId ? newId + '.' : ''}${Direction9.LEFT}`}
+          leftId={leftId}
           leftRatio={cellState.left?.ratio}
           leftOnRatioChanged={onRatioChanged(Direction9.LEFT)}
           leftOnOpen={onOpen}
           leftOnClose={onClose}
+          leftOnCloseSecond={(id) => {
+            onCloseSecond(id, newId);
+          }}
           leftOnInteracting={onInteracting}
           bottom={
             cellState.bottom ? renderState(Direction9.BOTTOM_LEFT, newId) : true
           }
-          bottomId={`${newId ? newId + '.' : ''}${Direction9.BOTTOM}`}
+          bottomId={bottomId}
           bottomRatio={cellState.bottom?.ratio}
           bottomOnRatioChanged={onRatioChanged(Direction9.BOTTOM)}
           bottomOnOpen={onOpen}
           bottomOnClose={onClose}
+          bottomOnCloseSecond={(id) => {
+            onCloseSecond(id, newId);
+          }}
           bottomOnInteracting={onInteracting}
         >
           <Component
@@ -213,11 +259,14 @@ const Cell2 = ({
           color={color}
           hideDividers={hideDivider}
           top={cellState.top ? renderState(Direction9.TOP_LEFT, newId) : true}
-          topId={`${newId ? newId + '.' : ''}${Direction9.TOP}`}
+          topId={topId}
           topRatio={cellState?.top?.ratio}
           topOnRatioChanged={onRatioChanged(Direction9.TOP)}
           topOnOpen={onOpen}
           topOnClose={onClose}
+          topOnCloseSecond={(id) => {
+            onCloseSecond(id, newId);
+          }}
           topOnInteracting={onInteracting}
         >
           <Component
@@ -237,11 +286,14 @@ const Cell2 = ({
           bottom={
             cellState.bottom ? renderState(Direction9.BOTTOM_LEFT, newId) : true
           }
-          bottomId={`${newId ? newId + '.' : ''}${Direction9.BOTTOM}`}
+          bottomId={bottomId}
           bottomRatio={cellState?.bottom?.ratio}
           bottomOnRatioChanged={onRatioChanged(Direction9.BOTTOM)}
           bottomOnOpen={onOpen}
           bottomOnClose={onClose}
+          bottomOnCloseSecond={(id) => {
+            onCloseSecond(id, newId);
+          }}
           bottomOnInteracting={onInteracting}
         >
           <Component
@@ -259,29 +311,38 @@ const Cell2 = ({
           color={color}
           hideDividers={hideDivider}
           top={cellState.top ? renderState(Direction9.TOP_RIGHT, newId) : true}
-          topId={`${newId ? newId + '.' : ''}${Direction9.TOP}`}
+          topId={topId}
           topRatio={cellState.top?.ratio}
           topOnRatioChanged={onRatioChanged(Direction9.TOP)}
           topOnOpen={onOpen}
           topOnClose={onClose}
+          topOnCloseSecond={(id) => {
+            onCloseSecond(id, newId);
+          }}
           topOnInteracting={onInteracting}
           right={cellState.right ? renderState(Direction9.RIGHT, newId) : true}
-          rightId={`${newId ? newId + '.' : ''}${Direction9.RIGHT}`}
+          rightId={rightId}
           rightRatio={cellState.right?.ratio}
           rightOnRatioChanged={onRatioChanged(Direction9.RIGHT)}
           rightOnOpen={onOpen}
           rightOnClose={onClose}
+          rightOnCloseSecond={(id) => {
+            onCloseSecond(id, newId);
+          }}
           rightOnInteracting={onInteracting}
           bottom={
             cellState.bottom
               ? renderState(Direction9.BOTTOM_RIGHT, newId)
               : true
           }
-          bottomId={`${newId ? newId + '.' : ''}${Direction9.BOTTOM}`}
+          bottomId={bottomId}
           bottomRatio={cellState.bottom?.ratio}
           bottomOnRatioChanged={onRatioChanged(Direction9.BOTTOM)}
           bottomOnOpen={onOpen}
           bottomOnClose={onClose}
+          bottomOnCloseSecond={(id) => {
+            onCloseSecond(id, newId);
+          }}
           bottomOnInteracting={onInteracting}
         >
           <Component
@@ -299,11 +360,14 @@ const Cell2 = ({
           color={color}
           hideDividers={hideDivider}
           top={cellState.top ? renderState(Direction9.TOP_RIGHT, newId) : true}
-          topId={`${newId ? newId + '.' : ''}${Direction9.TOP}`}
+          topId={topId}
           topRatio={cellState?.top?.ratio}
           topOnRatioChanged={onRatioChanged(Direction9.TOP)}
           topOnOpen={onOpen}
           topOnClose={onClose}
+          topOnCloseSecond={(id) => {
+            onCloseSecond(id, newId);
+          }}
           topOnInteracting={onInteracting}
         >
           <Component
@@ -325,11 +389,14 @@ const Cell2 = ({
               ? renderState(Direction9.BOTTOM_RIGHT, newId)
               : true
           }
-          bottomId={`${newId ? newId + '.' : ''}${Direction9.BOTTOM}`}
+          bottomId={bottomId}
           bottomRatio={cellState?.bottom?.ratio}
           bottomOnRatioChanged={onRatioChanged(Direction9.BOTTOM)}
           bottomOnOpen={onOpen}
           bottomOnClose={onClose}
+          bottomOnCloseSecond={(id) => {
+            onCloseSecond(id, newId);
+          }}
           bottomOnInteracting={onInteracting}
         >
           <Component

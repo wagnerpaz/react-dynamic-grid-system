@@ -20,6 +20,7 @@ type Props = {
   onRatioChanged?: (ratio: number) => void;
   onOpen?: (id: string, state?: State) => void;
   onClose?: (id: string, state?: State) => void;
+  onCloseSecond?: (id: string, state?: State) => void;
   onInteracting?: (id: string, interacting: boolean) => void;
 };
 
@@ -36,6 +37,7 @@ const Divider = ({
   onRatioChanged,
   onOpen,
   onClose,
+  onCloseSecond,
   onInteracting
 }: Props) => {
   const [container, setContainer] = useState<HTMLElement | null>(null);
@@ -83,6 +85,9 @@ const Divider = ({
       if (!open) {
         onOpen && onOpen(id);
         setOpen(true);
+      } else if (size > containerSizeValue - dividerWidth - closeWidth) {
+        setDragging(false);
+        onCloseSecond && onCloseSecond(id);
       }
     }
 
@@ -94,7 +99,7 @@ const Divider = ({
       }
       return ratio;
     });
-  }, [size, open, onRatioChanged, onOpen, onClose]);
+  }, [size, open, onRatioChanged, onOpen, onClose, onCloseSecond]);
 
   const onMouseDown = () => {
     setDragging(true);
@@ -104,18 +109,14 @@ const Divider = ({
     const onMouseMove = (e: MouseEvent) => {
       if (dragging) {
         setSize((size) => {
-          const newSize = Math.max(
-            (size || 0) +
-              (second ? 1 : -1) * (vertical ? e.movementX : e.movementY),
-            0
+          const newSize = Math.min(
+            Math.max(
+              (size || 0) +
+                (second ? 1 : -1) * (vertical ? e.movementX : e.movementY),
+              0
+            ),
+            containerSizeValue - dividerWidth
           );
-
-          // setOpen((open) => {
-          //   if (open && newSize <= 10) {
-          //     setDragging(false);
-          //   }
-          //   return open;
-          // });
 
           return newSize;
         });
