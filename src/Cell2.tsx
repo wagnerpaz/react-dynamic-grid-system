@@ -77,10 +77,8 @@ const Cell2 = ({
 
     const onCloseSecond = (id: string, idSecond: string) => {
       const idProps = cloneDeep(get(state, `${id}.props`));
-      console.log('idProps', idProps, idSecond);
 
       const newState = cloneDeep(state);
-      console.log('newState', newState);
 
       set(newState, `${idSecond}.props`, idProps);
       set(newState, id, undefined);
