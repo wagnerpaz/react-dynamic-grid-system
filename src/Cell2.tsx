@@ -84,6 +84,8 @@ const Cell2 = ({
       set(newState, id, undefined);
       onStateChanged &&
         onStateChanged(newState, idSecond, get(newState, idSecond));
+
+      onClose && onClose(id, {});
     };
 
     const topId = `${newId ? newId + '.' : ''}${Direction9.TOP}`;

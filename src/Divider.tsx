@@ -76,6 +76,7 @@ const Divider = ({
 
     if (size < closeWidth) {
       if (open) {
+        setDragging(false);
         onRatioChanged && onRatioChanged(0);
         onClose && onClose(id);
         setOpen(false);
