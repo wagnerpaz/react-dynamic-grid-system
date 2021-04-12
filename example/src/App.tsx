@@ -40,6 +40,9 @@ const App = () => {
             onClose={(id) => {
               console.log('onClose', id);
             }}
+            onMove={(fromId, toId) => {
+              console.log('onMove', fromId, toId);
+            }}
             onInteracting={(id, interacting) => {
               console.log('interacting', id, interacting);
             }}

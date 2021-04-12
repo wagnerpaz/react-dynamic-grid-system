@@ -16,6 +16,7 @@ type Props = {
   children?: React.ReactElement;
   onOpen?: (id: string, state: State) => void;
   onClose?: (id: string, state: State) => void;
+  onMove?: (fromId: string, toId: string) => void;
   onInteracting?: (id: string, interacting: boolean) => void;
 };
 
@@ -28,6 +29,7 @@ const Cell2 = ({
   children,
   onOpen,
   onClose,
+  onMove,
   onInteracting
 }: Props) => {
   const renderState = (
@@ -85,7 +87,7 @@ const Cell2 = ({
       onStateChanged &&
         onStateChanged(newState, idSecond, get(newState, idSecond));
 
-      onClose && onClose(id, {});
+      onMove && onMove(id, idSecond);
     };
 
     const topId = `${newId ? newId + '.' : ''}${Direction9.TOP}`;

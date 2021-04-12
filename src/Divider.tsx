@@ -86,9 +86,13 @@ const Divider = ({
       if (!open) {
         onOpen && onOpen(id);
         setOpen(true);
-      } else if (size > containerSizeValue - dividerWidth - closeWidth) {
-        setDragging(false);
-        onCloseSecond && onCloseSecond(id);
+      } else {
+        if (size > containerSizeValue - dividerWidth - closeWidth && dragging) {
+          setDragging(false);
+          onCloseSecond && onCloseSecond(id);
+          console.log('returned');
+          return;
+        }
       }
     }
 
@@ -100,7 +104,7 @@ const Divider = ({
       }
       return ratio;
     });
-  }, [size, open, onRatioChanged, onOpen, onClose, onCloseSecond]);
+  }, [dragging, size, open, onRatioChanged, onOpen, onClose, onCloseSecond]);
 
   const onMouseDown = () => {
     setDragging(true);
