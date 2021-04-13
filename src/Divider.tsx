@@ -72,7 +72,7 @@ const Divider = ({
 
   const [, setOldRatio] = useState(-1);
   useEffect(() => {
-    if (size === -99999) return;
+    if (size === -99999 && !dragging) return;
 
     if (size < closeWidth) {
       if (open) {
@@ -87,10 +87,11 @@ const Divider = ({
         onOpen && onOpen(id);
         setOpen(true);
       } else {
-        if (size > containerSizeValue - dividerWidth - closeWidth && dragging) {
-          setDragging(false);
-          onCloseSecond && onCloseSecond(id);
-          console.log('returned');
+        if (size > containerSizeValue - dividerWidth - closeWidth) {
+          if (dragging) {
+            setDragging(false);
+            onCloseSecond && onCloseSecond(id);
+          }
           return;
         }
       }
@@ -102,7 +103,7 @@ const Divider = ({
       if (newRatio !== oldRatio) {
         onRatioChanged && onRatioChanged(newRatio);
       }
-      return ratio;
+      return newRatio;
     });
   }, [dragging, size, open, onRatioChanged, onOpen, onClose, onCloseSecond]);
 
