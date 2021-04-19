@@ -11,7 +11,12 @@ type Props = {
   color?: string;
   hideDivider?: boolean;
   state: State;
-  onStateChanged?: (state: State, id: string, localState: State) => void;
+  onStateChanged?: (
+    state: State,
+    id: string,
+    localState: State,
+    movedFrom?: string
+  ) => void;
   Component: React.FunctionComponent<any>;
   children?: React.ReactElement;
   onOpen?: (id: string, state: State) => void;
@@ -78,16 +83,29 @@ const Cell2 = ({
     };
 
     const onCloseSecond = (id: string, idSecond: string) => {
-      const idProps = cloneDeep(get(state, `${id}.props`));
-
-      const newState = cloneDeep(state);
-
-      set(newState, `${idSecond}.props`, idProps);
-      set(newState, id, undefined);
-      onStateChanged &&
-        onStateChanged(newState, idSecond, get(newState, idSecond));
-
       onMove && onMove(id, idSecond);
+      const idValue = cloneDeep(get(state, id));
+
+      let newState = cloneDeep(state);
+
+      set(newState, id, undefined);
+      const idSecondValue = idSecond
+        ? cloneDeep(get(newState, idSecond))
+        : state;
+
+      if (idSecond) {
+        set(newState, idSecond, {
+          ...idSecondValue,
+          ...idValue,
+          ratio: idSecondValue.ratio
+        });
+      } else {
+        newState = { ...newState, ...idValue, ratio: newState.ratio };
+      }
+
+      const secondLocalState = idSecond ? get(newState, idSecond) : newState;
+      onStateChanged &&
+        onStateChanged(newState, idSecond, secondLocalState, id);
     };
 
     const topId = `${newId ? newId + '.' : ''}${Direction9.TOP}`;

@@ -46,18 +46,7 @@ const App = () => {
             onInteracting={(id, interacting) => {
               console.log('interacting', id, interacting);
             }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                flex: 1
-              }}
-            >
-              <div>CANVAS</div>
-            </div>
-          </Cell2>
+          />
         </DynamicGridSystem>
       </div>
     </>

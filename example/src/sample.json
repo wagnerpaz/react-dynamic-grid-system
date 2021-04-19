@@ -8,5 +8,11 @@
          "ratio": 0.5,
          "props": {"count": 2}
       }
+   },
+   "right": {
+      "ratio": 0.5,
+      "props": {
+         "count": 8
+      }
    }
 }

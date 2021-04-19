@@ -61,7 +61,13 @@ const Divider = ({
   const second = top || left;
 
   useEffect(() => {
-    onInteracting && onInteracting(id, dragging);
+    if (dragging) {
+      onInteracting && onInteracting(id, dragging);
+    } else {
+      setTimeout(() => {
+        onInteracting && onInteracting(id, dragging);
+      }, 200);
+    }
   }, [dragging]);
 
   useEffect(() => {
@@ -86,11 +92,12 @@ const Divider = ({
       if (!open) {
         onOpen && onOpen(id);
         setOpen(true);
+        onRatioChanged && onRatioChanged(ratio);
       } else {
         if (size > containerSizeValue - dividerWidth - closeWidth) {
           if (dragging) {
-            setDragging(false);
             onCloseSecond && onCloseSecond(id);
+            setDragging(false);
           }
           return;
         }
