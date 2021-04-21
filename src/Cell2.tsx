@@ -93,6 +93,9 @@ const Cell2 = ({
         ? cloneDeep(get(newState, idSecond))
         : state;
 
+      if (!idValue.top) idValue.top = null;
+      if (!idValue.bottom) idValue.bottom = null;
+
       if (idSecond) {
         set(newState, idSecond, {
           ...idSecondValue,
