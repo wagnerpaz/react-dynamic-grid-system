@@ -24,6 +24,9 @@ type Props = {
   onInteracting?: (id: string, interacting: boolean) => void;
 };
 
+let lastClientX: number;
+let lastClientY: number;
+
 const Divider = ({
   id,
   color,
@@ -116,16 +119,21 @@ const Divider = ({
 
   const onMouseDown = () => {
     setDragging(true);
+    lastClientX = 0;
+    lastClientY = 0;
   };
 
   useEffect(() => {
     const onMouseMove = (e: MouseEvent) => {
       if (dragging) {
+        console.log(e.clientX, lastClientX);
+        const movementX = lastClientX ? e.clientX - lastClientX : 0;
+        const movementY = lastClientY ? e.clientY - lastClientY : 0;
         setSize((size) => {
           const newSize = Math.min(
             Math.max(
               (size || 0) +
-                (second ? 1 : -1) * (vertical ? e.movementX : e.movementY),
+                (second ? 1 : -1) * (vertical ? movementX : movementY),
               0
             ),
             containerSizeValue - dividerWidth
@@ -133,6 +141,8 @@ const Divider = ({
 
           return newSize;
         });
+        lastClientX = e.clientX;
+        lastClientY = e.clientY;
       }
     };
 
@@ -218,7 +228,7 @@ const Divider = ({
           alignItems: 'center',
           justifyContent: 'center'
         }}
-        onMouseDown={!hideDivider ? onMouseDown : undefined}
+        {...(!hideDivider ? { onMouseDown } : null)}
       >
         {!hideDivider ? (
           <Fragment>
