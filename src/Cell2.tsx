@@ -23,6 +23,7 @@ type Props = {
   onClose?: (id: string, state: State) => void;
   onMove?: (fromId: string, toId: string) => void;
   onInteracting?: (id: string, interacting: boolean) => void;
+  dividerWidth?: number;
 };
 
 const Cell2 = ({
@@ -35,7 +36,8 @@ const Cell2 = ({
   onOpen,
   onClose,
   onMove,
-  onInteracting
+  onInteracting,
+  dividerWidth
 }: Props) => {
   const renderState = (
     direction: Direction9,
@@ -163,10 +165,9 @@ const Cell2 = ({
             onCloseSecond(id, newId);
           }}
           leftOnInteracting={onInteracting}
+          dividerWidth={dividerWidth}
         >
-          {children ? (
-            children
-          ) : (
+          {children || (
             <Component
               {...cellState.props}
               id={newId}
@@ -192,6 +193,7 @@ const Cell2 = ({
             onCloseSecond(id, newId);
           }}
           topOnInteracting={onInteracting}
+          dividerWidth={dividerWidth}
         >
           <Component
             {...cellState.props}
@@ -219,6 +221,7 @@ const Cell2 = ({
             onCloseSecond(id, newId);
           }}
           bottomOnInteracting={onInteracting}
+          dividerWidth={dividerWidth}
         >
           <Component
             {...cellState.props}
@@ -266,6 +269,7 @@ const Cell2 = ({
             onCloseSecond(id, newId);
           }}
           bottomOnInteracting={onInteracting}
+          dividerWidth={dividerWidth}
         >
           <Component
             {...cellState.props}
@@ -291,6 +295,7 @@ const Cell2 = ({
             onCloseSecond(id, newId);
           }}
           topOnInteracting={onInteracting}
+          dividerWidth={dividerWidth}
         >
           <Component
             {...cellState.props}
@@ -318,6 +323,7 @@ const Cell2 = ({
             onCloseSecond(id, newId);
           }}
           bottomOnInteracting={onInteracting}
+          dividerWidth={dividerWidth}
         >
           <Component
             {...cellState.props}
@@ -367,6 +373,7 @@ const Cell2 = ({
             onCloseSecond(id, newId);
           }}
           bottomOnInteracting={onInteracting}
+          dividerWidth={dividerWidth}
         >
           <Component
             {...cellState.props}
@@ -392,6 +399,7 @@ const Cell2 = ({
             onCloseSecond(id, newId);
           }}
           topOnInteracting={onInteracting}
+          dividerWidth={dividerWidth}
         >
           <Component
             {...cellState.props}
@@ -421,6 +429,7 @@ const Cell2 = ({
             onCloseSecond(id, newId);
           }}
           bottomOnInteracting={onInteracting}
+          dividerWidth={dividerWidth}
         >
           <Component
             {...cellState.props}
