@@ -30,6 +30,7 @@ const App = () => {
             hideDivider={false}
             Component={Component}
             state={state}
+            dividerWidth={4}
             onStateChanged={(state, id, localState) => {
               setState(state);
               console.log('state', state, 'id', id, 'localState', localState);
