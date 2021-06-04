@@ -126,7 +126,6 @@ const Divider = ({
   useEffect(() => {
     const onMouseMove = (e: MouseEvent) => {
       if (dragging) {
-        console.log(e.clientX, lastClientX);
         const movementX = lastClientX ? e.clientX - lastClientX : 0;
         const movementY = lastClientY ? e.clientY - lastClientY : 0;
         setSize((size) => {
