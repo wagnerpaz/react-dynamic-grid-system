@@ -1,7 +1,8 @@
 import get from 'lodash.get';
 import set from 'lodash.set';
 import cloneDeep from 'lodash.clonedeep';
-import React from 'react';
+// eslint-disable-next-line no-unused-vars
+import React, { CSSProperties, useState } from 'react';
 import { Direction9 } from './Direction9';
 import MultiDivider from './MultiDivider';
 // eslint-disable-next-line no-unused-vars
@@ -24,6 +25,8 @@ type Props = {
   onMove?: (fromId: string, toId: string) => void;
   onInteracting?: (id: string, interacting: boolean) => void;
   dividerWidth?: number;
+  selectionMode?: boolean;
+  onCellSelection?: (id: string) => void;
 };
 
 const Cell2 = ({
@@ -37,8 +40,22 @@ const Cell2 = ({
   onClose,
   onMove,
   onInteracting,
-  dividerWidth
+  dividerWidth,
+  selectionMode,
+  onCellSelection
 }: Props) => {
+  const [hoverCell, setHoverCell] = useState<string | null>(null);
+  const onMouseOverCell = (id: string) => {
+    if (selectionMode) {
+      setHoverCell(id);
+    }
+  };
+
+  const onCellSelected = (id: string) => {
+    onCellSelection && onCellSelection(id);
+    setHoverCell(null);
+  };
+
   const renderState = (
     direction: Direction9,
     id?: string
@@ -168,11 +185,22 @@ const Cell2 = ({
           dividerWidth={dividerWidth}
         >
           {children || (
-            <Component
-              {...cellState.props}
-              id={newId}
-              onPropsChanged={onPropsChanged}
-            />
+            <div
+              onMouseOver={() => onMouseOverCell && onMouseOverCell(newId)}
+              style={styles.componentContainer}
+            >
+              <Component
+                {...cellState.props}
+                id={newId}
+                onPropsChanged={onPropsChanged}
+              />
+              {hoverCell === newId && (
+                <div
+                  style={styles.componentOverlay}
+                  onClick={() => onCellSelected(newId)}
+                />
+              )}
+            </div>
           )}
         </MultiDivider>
       );
@@ -195,11 +223,22 @@ const Cell2 = ({
           topOnInteracting={onInteracting}
           dividerWidth={dividerWidth}
         >
-          <Component
-            {...cellState.props}
-            id={newId}
-            onPropsChanged={onPropsChanged}
-          />
+          <div
+            onMouseOver={() => onMouseOverCell && onMouseOverCell(newId)}
+            style={styles.componentContainer}
+          >
+            <Component
+              {...cellState.props}
+              id={newId}
+              onPropsChanged={onPropsChanged}
+            />
+            {hoverCell === newId && (
+              <div
+                style={styles.componentOverlay}
+                onClick={() => onCellSelected(newId)}
+              />
+            )}
+          </div>
         </MultiDivider>
       );
     }
@@ -223,11 +262,22 @@ const Cell2 = ({
           bottomOnInteracting={onInteracting}
           dividerWidth={dividerWidth}
         >
-          <Component
-            {...cellState.props}
-            id={newId}
-            onPropsChanged={onPropsChanged}
-          />
+          <div
+            onMouseOver={() => onMouseOverCell && onMouseOverCell(newId)}
+            style={styles.componentContainer}
+          >
+            <Component
+              {...cellState.props}
+              id={newId}
+              onPropsChanged={onPropsChanged}
+            />
+            {hoverCell === newId && (
+              <div
+                style={styles.componentOverlay}
+                onClick={() => onCellSelected(newId)}
+              />
+            )}
+          </div>
         </MultiDivider>
       );
     }
@@ -271,11 +321,22 @@ const Cell2 = ({
           bottomOnInteracting={onInteracting}
           dividerWidth={dividerWidth}
         >
-          <Component
-            {...cellState.props}
-            id={newId}
-            onPropsChanged={onPropsChanged}
-          />
+          <div
+            onMouseOver={() => onMouseOverCell && onMouseOverCell(newId)}
+            style={styles.componentContainer}
+          >
+            <Component
+              {...cellState.props}
+              id={newId}
+              onPropsChanged={onPropsChanged}
+            />
+            {hoverCell === newId && (
+              <div
+                style={styles.componentOverlay}
+                onClick={() => onCellSelected(newId)}
+              />
+            )}
+          </div>
         </MultiDivider>
       );
     }
@@ -297,11 +358,22 @@ const Cell2 = ({
           topOnInteracting={onInteracting}
           dividerWidth={dividerWidth}
         >
-          <Component
-            {...cellState.props}
-            id={newId}
-            onPropsChanged={onPropsChanged}
-          />
+          <div
+            onMouseOver={() => onMouseOverCell && onMouseOverCell(newId)}
+            style={styles.componentContainer}
+          >
+            <Component
+              {...cellState.props}
+              id={newId}
+              onPropsChanged={onPropsChanged}
+            />
+            {hoverCell === newId && (
+              <div
+                style={styles.componentOverlay}
+                onClick={() => onCellSelected(newId)}
+              />
+            )}
+          </div>
         </MultiDivider>
       );
     }
@@ -325,11 +397,22 @@ const Cell2 = ({
           bottomOnInteracting={onInteracting}
           dividerWidth={dividerWidth}
         >
-          <Component
-            {...cellState.props}
-            id={newId}
-            onPropsChanged={onPropsChanged}
-          />
+          <div
+            onMouseOver={() => onMouseOverCell && onMouseOverCell(newId)}
+            style={styles.componentContainer}
+          >
+            <Component
+              {...cellState.props}
+              id={newId}
+              onPropsChanged={onPropsChanged}
+            />
+            {hoverCell === newId && (
+              <div
+                style={styles.componentOverlay}
+                onClick={() => onCellSelected(newId)}
+              />
+            )}
+          </div>
         </MultiDivider>
       );
     }
@@ -375,11 +458,22 @@ const Cell2 = ({
           bottomOnInteracting={onInteracting}
           dividerWidth={dividerWidth}
         >
-          <Component
-            {...cellState.props}
-            id={newId}
-            onPropsChanged={onPropsChanged}
-          />
+          <div
+            onMouseOver={() => onMouseOverCell && onMouseOverCell(newId)}
+            style={styles.componentContainer}
+          >
+            <Component
+              {...cellState.props}
+              id={newId}
+              onPropsChanged={onPropsChanged}
+            />
+            {hoverCell === newId && (
+              <div
+                style={styles.componentOverlay}
+                onClick={() => onCellSelected(newId)}
+              />
+            )}
+          </div>
         </MultiDivider>
       );
     }
@@ -401,11 +495,22 @@ const Cell2 = ({
           topOnInteracting={onInteracting}
           dividerWidth={dividerWidth}
         >
-          <Component
-            {...cellState.props}
-            id={newId}
-            onPropsChanged={onPropsChanged}
-          />
+          <div
+            onMouseOver={() => onMouseOverCell && onMouseOverCell(newId)}
+            style={styles.componentContainer}
+          >
+            <Component
+              {...cellState.props}
+              id={newId}
+              onPropsChanged={onPropsChanged}
+            />
+            {hoverCell === newId && (
+              <div
+                style={styles.componentOverlay}
+                onClick={() => onCellSelected(newId)}
+              />
+            )}
+          </div>
         </MultiDivider>
       );
     }
@@ -431,11 +536,22 @@ const Cell2 = ({
           bottomOnInteracting={onInteracting}
           dividerWidth={dividerWidth}
         >
-          <Component
-            {...cellState.props}
-            id={newId}
-            onPropsChanged={onPropsChanged}
-          />
+          <div
+            onMouseOver={() => onMouseOverCell && onMouseOverCell(newId)}
+            style={styles.componentContainer}
+          >
+            <Component
+              {...cellState.props}
+              id={newId}
+              onPropsChanged={onPropsChanged}
+            />
+            {hoverCell === newId && (
+              <div
+                style={styles.componentOverlay}
+                onClick={() => onCellSelected(newId)}
+              />
+            )}
+          </div>
         </MultiDivider>
       );
     }
@@ -444,6 +560,26 @@ const Cell2 = ({
   };
 
   return renderState(Direction9.CENTER);
+};
+
+const styles: Record<string, CSSProperties> = {
+  componentContainer: {
+    display: 'flex',
+    flex: 1,
+    position: 'relative',
+    width: '100%',
+    height: '100%'
+  },
+  componentOverlay: {
+    backgroundColor: 'yellow',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    opacity: 0.5,
+    cursor: 'pointer'
+  }
 };
 
 export default Cell2;
